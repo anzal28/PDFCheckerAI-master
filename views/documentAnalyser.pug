@@ -1,0 +1,61 @@
+extends base
+block append head 
+    
+block content 
+    section#scroll-top.breadcrumb
+        .container
+            .col-lg-8.text-center.text-lg-start
+                h2.fw-bold.display-5= featureTitle
+                hr
+                h4.text-purple.fw-bold We are also HUMANS 
+                p.opacity-75
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vitae velit
+                    | nam
+                    | consectetur, in ullam natus pariatur aliquid. Aut, magnam!
+    section.assignment-writing.py-6.px-2.px-lg-4.bg-white
+        .container
+            form#analyser-form
+                .row
+                    .col-lg-6.p-4
+                        // Document Upload
+                        .div
+                            h5.fw-bold.fs-4.mt-4 Upload File
+                            h6.form-label(for="file") Select a PDF or TXT file:
+                            input#file.form-control(type="file", accept=".pdf,.txt" required)
+                            br
+                            h6 Document Name:
+                            input#doc-title.form-control(type="text", name="name", placeholder="Start typing in here..." required)
+                            br
+                            h6 Country:
+                            input#doc-country.form-control(type="text", name="country", placeholder="Ethiopia" required)
+                            br
+                            h6 Product:
+                            input#doc-product.form-control(type="text", name="product", placeholder="AI" required)
+                            br
+                            h6 Document Intent
+                            select#doc-intent.form-control(type="text", name="intent", placeholder="non-promotional" required)
+                                option(value="Non-promotional", selected) Non-promotional 
+                                option(value="Promotional") Promotional 
+                            br
+                            h6 Audiance:
+                            input#doc-audiance.form-control(type="text", name="audiance", placeholder="patients, general public, and health proffessionals" required)                                        
+                            br
+                            h6 Method of Dissemination:
+                            input#doc-dissemination.form-control(type="text", name="dessimination", placeholder="blogs, print" required)
+                            
+                            button#submit-btn.btn.btn-primary.mt-2.fw-bold.fs-5.px-4.mt-3(type="submit") Analyse
+                    // Analysis Result Display
+                    .col-lg-6.bg-turiLight.p-4
+                        h5.fw-bold.fs-4
+                            i.bi.bi-robot
+                            | Analysis Result
+                        hr
+                        // result section
+                        p.result-section
+                            i.bi.bi-file-earmark-arrow-up
+                            | Please upload a proper document format in .pdf or .txt
+                            hr
+                            #output
+                            // placeholder
+                            .spinner-border.text-purple.loader(role="status", style="display: none;")
+                                span.visually-hidden Loading...

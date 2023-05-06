@@ -1,0 +1,40 @@
+extends base
+include _pricingCard
+
+block append head 
+    script(defer src="/js/checkout.js" type='module' ) 
+    
+    
+block content
+    
+    section#scroll-top.breadcrumb
+        //- .container
+        //-     .col-lg-15.text-center.text-lg-start
+        //-         h2.fw-bold.display-5 Flexible and transparent pricing
+        //-         hr
+        //-         h4.text-purple.fw-bold   Whatever your status, our offers evolve according to your needs. 
+        //-         p.opacity-75
+        //-             | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vitae velit
+        //-             | nam
+        //-             | consectetur, in ullam natus pariatur aliquid. Aut, magnam!
+    // Modal
+    #modal-pay.modal.fade(tabindex="-1", aria-labelledby="exampleModalLabel", aria-hidden="true")
+        .modal-dialog.payment-modal
+            .modal-content
+                .modal-header
+                    h5#paymodal-label.modal-title Continue purchasing {plan_name} plan
+                    button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                .modal-body
+                    button.btn-outline.btn-primary#btn-continue
+                        | Continue
+    // Pricing section
+    // Mothly
+    section.container
+        .row.text-center
+            h2.fw-bold.display-5 Monthly pricing
+            h4.text-purple.fw-bold   Whatever your status, our offers evolve according to your needs. 
+        section.side.justify-content-center.section-pricing
+            -for(let i = 0; i < plans.length; i++)
+                +pricingCard(plans[i])
+            
+        

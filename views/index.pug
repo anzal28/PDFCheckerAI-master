@@ -1,0 +1,200 @@
+extends base
+include _pricingCard
+block append head
+    script(defer src="/assets/js/typed.js")
+    script(defer src="/js/checkout.js" type='module' ) 
+include _featureCard
+block content   
+    // Hero section
+    section#scroll-top.hero.position-relative
+        .container
+            .row
+                .col-lg-6.d-flex.align-items-center.justify-content-center.justify-content-lg-start
+                    .hero-content.text-center.text-lg-start
+                        h2.m-0.opacity-75.fs-3
+                            | Welcome!
+                            span#name
+                            | , I&apos;m the
+                        h1.text-secondary-color.m-0.display-4
+                            | Document Analayzer AI
+                        #typed-strings
+                            h1.display-5.fw-bold.text-turi
+                                span#typed
+                            br
+                .col-lg-6.d-lg-flex.align-items-center
+                    img.img-fluid(src="/img/AIvisual.webp", alt='')
+    // Features section
+    section.features.py-6.bg-turiLight.px-3.px-lg-0
+        .container
+            h2.fw-bold.display-5 Features
+            h4.text-turi.fw-bold Document Analysis Tools
+            p.opacity-75
+                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+                | vitae velit nam consectetur, in ullam natus pariatur aliquid. Aut,
+                | magnam!
+            .row
+                +featureCard('robot-with-books (1).webp','robot with book','Document Analyser','document-analyser')
+                +featureCard('robot-with-document-folders.webp','robot with reference','Reference Checker','reference-checker')
+                
+            //- .text-center.mt-5
+            //-     h4.fw-bold.display-5.action-buttons
+            //-         | Want to check out all the features?
+            //-     a.btn-primary.btn.fs-4.fw-bold.px-5(href="features")
+            //-         | click here!!
+        // Modal
+    #modal-pay.modal.fade(tabindex="-1", aria-labelledby="exampleModalLabel", aria-hidden="true")
+        .modal-dialog.payment-modal
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Selected Plan Name Here
+                    button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                .modal-body
+                    h4.fw-bold.fs-4 Continue with
+                    button.btn-outline.btn-primary
+                        | Stripe
+    
+    // Description section
+    section.how-it-works.bg-white.px-3.px-lg-0
+        .container
+            .row
+                .col-lg-5.mt-4
+                    img.img-fluid(src="/img/analysis-svgrepo-com.svg", alt="analysis picture")
+                .col-lg-7.mt-4.d-flex.align-items-center
+                    .div
+                        h2.fw-bold.display-5 How It Works?
+                        h4.text-turi.fw-bold No Rocket Science
+                        ul
+                            li
+                                | 👉 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                | Esse beatae obcaecati nam doloribus sequi at, iste non culpa.
+                            li
+                                | 👉 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                | Esse beatae obcaecati nam doloribus sequi at, iste non culpa.
+                            li
+                                | 👉 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                | Esse beatae obcaecati nam doloribus sequi at, iste non culpa.
+                            li
+                                | 👉 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                | Esse beatae obcaecati nam doloribus sequi at, iste non culpa.
+                            li
+                                | 👉 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                | Esse beatae obcaecati nam doloribus sequi at, iste non culpa.
+                            li
+                                | 👉 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                | Esse beatae obcaecati nam doloribus sequi at, iste non culpa.
+    // Pricing section
+    section.container
+        .row.text-center
+            h2.fw-bold.display-5 Flexible and transparent pricing
+            p
+                | Whatever your status, our offers evolve according to your needs.
+        section.side.justify-content-center
+            -for(let i = 0; i < plans.length; i++)
+                +pricingCard(plans[i])
+
+    // FAQs section
+    section.faqs.py-6.bg-turiLight.px-3.px-lg-0
+        .container
+            .row
+                .col-lg-8
+                    h2.fw-bold.display-5 Frequently Asked Questions 
+                    h4.text-turi.fw-bold
+                        | Even a 2yr old can understand
+                    p.opacity-75
+                        | Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        | Cupiditate vitae velit nam consectetur, in ullam natus pariatur
+                        | aliquid. Aut, magnam!
+                    // Accordion
+                    #accordionExample.accordion
+                        .accordion-item
+                            h2#headingOne.accordion-header
+                                button.accordion-button(type="button", data-bs-toggle="collapse", data-bs-target="#collapseOne", aria-expanded="true", aria-controls="collapseOne")
+                                    | Accordion Item #1
+                            #collapseOne.accordion-collapse.collapse.show(aria-labelledby="headingOne", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    strong This is the first item&apos;s accordion body.
+                                    | It
+                                    | is shown by default, until the collapse plugin adds the
+                                    | appropriate classes that we use to style each element. These
+                                    | classes control the overall appearance, as well as the
+                                    | showing and hiding via CSS transitions. You can modify any
+                                    | of this with custom CSS or overriding our default variables.
+                                    | It&apos;s also worth noting that just about any HTML can go
+                                    | within the
+                                    code .accordion-body
+                                    | , though the
+                                    | transition does limit overflow.
+                        .accordion-item
+                            h2#headingTwo.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseTwo", aria-expanded="false", aria-controls="collapseTwo")
+                                    | Accordion Item #2
+                            #collapseTwo.accordion-collapse.collapse(aria-labelledby="headingTwo", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    strong This is the second item&apos;s accordion body.
+                                    | It is hidden by default, until the collapse plugin adds the
+                                    | appropriate classes that we use to style each element. These
+                                    | classes control the overall appearance, as well as the
+                                    | showing and hiding via CSS transitions. You can modify any
+                                    | of this with custom CSS or overriding our default variables.
+                                    | It&apos;s also worth noting that just about any HTML can go
+                                    | within the
+                                    code .accordion-body
+                                    | , though the
+                                    | transition does limit overflow.
+                        .accordion-item
+                            h2#headingThree.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseThree", aria-expanded="false", aria-controls="collapseThree")
+                                    | Accordion Item #3
+                            #collapseThree.accordion-collapse.collapse(aria-labelledby="headingThree", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    strong This is the third item&apos;s accordion body.
+                                    | It
+                                    | is hidden by default, until the collapse plugin adds the
+                                    | appropriate classes that we use to style each element. These
+                                    | classes control the overall appearance, as well as the
+                                    | showing and hiding via CSS transitions. You can modify any
+                                    | of this with custom CSS or overriding our default variables.
+                                    | It&apos;s also worth noting that just about any HTML can go
+                                    | within the
+                                    code .accordion-body
+                                    | , though the
+                                    | transition does limit overflow.
+                        .accordion-item
+                            h2#headingFour.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseFour", aria-expanded="false", aria-controls="collapseFour")
+                                    | Accordion Item #4
+                            #collapseFour.accordion-collapse.collapse(aria-labelledby="headingFour", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    strong This is the third item&apos;s accordion body.
+                                    | It
+                                    | is hidden by default, until the collapse plugin adds the
+                                    | appropriate classes that we use to style each element. These
+                                    | classes control the overall appearance, as well as the
+                                    | showing and hiding via CSS transitions. You can modify any
+                                    | of this with custom CSS or overriding our default variables.
+                                    | It&apos;s also worth noting that just about any HTML can go
+                                    | within the
+                                    code .accordion-body
+                                    | , though the
+                                    | transition does limit overflow.
+                        .accordion-item
+                            h2#headingFive.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseFive", aria-expanded="false", aria-controls="collapseFive")
+                                    | Accordion Item #5
+                            #collapseFive.accordion-collapse.collapse(aria-labelledby="headingFive", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    strong This is the third item&apos;s accordion body.
+                                    | It
+                                    | is hidden by default, until the collapse plugin adds the
+                                    | appropriate classes that we use to style each element. These
+                                    | classes control the overall appearance, as well as the
+                                    | showing and hiding via CSS transitions. You can modify any
+                                    | of this with custom CSS or overriding our default variables.
+                                    | It&apos;s also worth noting that just about any HTML can go
+                                    | within the
+                                    code .accordion-body
+                                    | , though the
+                                    | transition does limit overflow.
+                // background faq
+                .col-lg-4.bg-faq
+

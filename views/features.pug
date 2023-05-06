@@ -1,0 +1,27 @@
+extends base
+include _featureCard
+block content
+    section#scroll-top.breadcrumb
+        .container
+            .col-lg-8.text-center.text-lg-start
+                h2.fw-bold.display-5 All Features
+                hr
+                h4.text-purple.fw-bold  We are one STEP Ahead 
+                p.opacity-75
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+                    | vitae velit nam consectetur, in ullam natus pariatur aliquid. Aut,
+                    | magnam!
+    // Features section
+    section.features.py-6.bg-turiLight.px-3.px-lg-0
+        .container
+            h2.fw-bold.display-5 Features
+            h4.text-turi.fw-bold Document Analysis Tools
+            p.opacity-75
+                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+                | vitae velit nam consectetur, in ullam natus pariatur aliquid. Aut,
+                | magnam!
+            .row
+                +featureCard('robot-with-books (1).jpg','robot with book','Document Analyser','document-analyser')
+                +featureCard('robot-with-document-folders.jpg','robot with reference','Reference Checker','reference-checker')
+                
+    

@@ -1,0 +1,45 @@
+extends base
+block content
+    section#scroll-top.breadcrumb
+        .container
+            .col-lg-8.text-center.text-lg-start
+                h2.fw-bold.display-5 Reference Checker
+                hr
+                h4.text-purple.fw-bold We are also HUMANS 
+                p.opacity-75
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vitae velit
+                    | nam
+                    | consectetur, in ullam natus pariatur aliquid. Aut, magnam!
+    section.assignment-writing.py-6.px-2.px-lg-4.bg-white
+        .container
+            form#checker-form
+                .row
+                    .col-lg-6.p-4
+                        // Document Upload
+                        .div
+                            h5.fw-bold.fs-4.mt-4 Upload File
+                            label.form-label(for="file") Select a PDF or TXT file:
+                            input#file.form-control(type="file", accept=".pdf,.txt")
+                            //- br
+                            //- label(for="input1") Input 1:
+                            //- input#userSkill.form-control(type="text", name="input1", placeholder="Start typing in here...")
+                            //- br
+                            //- label(for="description") Description:
+                            //- textarea#userDescription.form-control(type="text", name="description", placeholder="Start typing in here...")
+                            button#submit-btn.btn.btn-primary.mt-2.fw-bold.fs-5.px-4.mt-3 Check
+                    // Analysis Result Display
+                    .col-lg-6.bg-turiLight.p-4
+                        h5.fw-bold.fs-4
+                            i.bi.bi-robot
+                            | Analysis Result
+                        hr
+                        // result section
+                        p.result-section
+                            i.bi.bi-file-earmark-arrow-up
+                            | Please upload a proper document format in .pdf or .txt
+                            hr
+                            #output
+                            // placeholder
+                            .spinner-border.text-purple.loader(role="status", style="display: none;")
+                                span.visually-hidden Loading...
+    

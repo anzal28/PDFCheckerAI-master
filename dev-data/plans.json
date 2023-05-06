@@ -1,0 +1,5 @@
+[
+  { "name": "Free", "price": 0, "tokenLimit": 20000, "description": "" },
+  { "name": "Standard", "price": 500, "tokenLimit": 2000000, "description": "" },
+  { "name": "Premium", "price": 1000, "tokenLimit": 999999999999, "description": "" }
+]
