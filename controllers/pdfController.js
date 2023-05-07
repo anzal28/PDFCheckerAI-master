@@ -87,7 +87,7 @@ exports.checkReference = catchAsync(async function (req, res, next) {
   if (formated.length > 1)
     return next(
       new AppError(
-        'Wow there, this is GPT-3 and are you trying to check a book. You got to be kidding!',
+        'Wow there, are you trying to check a book. You got to be kidding! Please a little smaller pages',
         400
       )
     );

@@ -29,7 +29,7 @@ async function spiltText(text, check = true) {
       throw new AppError('No readable text stream or very small readable data');
 
   const splitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 8000,
+    chunkSize: process.env.CHUCK_SIZE,
     chunkOverlap: 1000,
   });
 

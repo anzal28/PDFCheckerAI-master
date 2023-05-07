@@ -14,7 +14,6 @@ router.route('/login').post(authController.logIn);
 router.route('/forgotpassword').post(authController.forgotPassword);
 router.route('/verifyemail/:token').get(authController.verifyEmail);
 
-// TODO: BUILD RESET PASSWORD PAGE
 router.route('/resetpassword/:token').post(authController.resetPassword);
 
 router.use(authController.protect);
