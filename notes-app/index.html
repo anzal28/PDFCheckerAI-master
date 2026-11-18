@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14161a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Jotter – AI meeting notes</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <button id="back" class="icon hidden" aria-label="Back">‹</button>
+  <h1 id="title">Jotter</h1>
+  <span id="spend" class="pill" title="Budget used"></span>
+  <button id="openSettings" class="icon" aria-label="Settings">⚙</button>
+</header>
+
+<main id="list">
+  <div id="notes"></div>
+  <p id="empty" class="muted">No meetings yet. Tap + to start.</p>
+</main>
+
+<main id="editor" class="hidden">
+  <input id="mtitle" placeholder="Meeting title" autocomplete="off">
+  <div class="tabs">
+    <button data-tab="notes" class="on">My notes</button>
+    <button data-tab="transcript">Transcript</button>
+    <button data-tab="enhanced">Enhanced</button>
+  </div>
+  <textarea id="tNotes" placeholder="Jot rough notes here… the AI will fill in the gaps from the transcript."></textarea>
+  <textarea id="tTranscript" class="hidden" placeholder="Live transcript appears here while recording. You can also paste one."></textarea>
+  <div id="tEnhanced" class="hidden out"></div>
+  <div class="bar">
+    <button id="rec" class="rec">● Record</button>
+    <button id="enhance" class="primary">✨ Enhance</button>
+    <button id="copy">Copy</button>
+    <button id="del" class="danger">Delete</button>
+  </div>
+  <p id="status" class="muted"></p>
+</main>
+
+<button id="fab" aria-label="New meeting">+</button>
+
+<dialog id="settings">
+  <form method="dialog">
+    <h2>Settings</h2>
+    <label>API base URL <input id="sBase" placeholder="https://openrouter.ai/api/v1"></label>
+    <label>Model (use an abliterated model your provider hosts) <input id="sModel" placeholder="provider/model-abliterated"></label>
+    <label>API key (stored only on this device) <input id="sKey" type="password" autocomplete="off"></label>
+    <div class="row">
+      <label>$ / 1M input tokens <input id="sPin" type="number" step="0.01" min="0"></label>
+      <label>$ / 1M output tokens <input id="sPout" type="number" step="0.01" min="0"></label>
+    </div>
+    <label>Hard budget cap ($) <input id="sCap" type="number" step="0.1" min="0"></label>
+    <p class="muted" id="sSpent"></p>
+    <div class="bar">
+      <button value="save" id="sSave" class="primary">Save</button>
+      <button value="cancel">Close</button>
+      <button type="button" id="resetSpend" class="danger">Reset spend</button>
+    </div>
+  </form>
+</dialog>
+<script src="app.js"></script>
+</body>
+</html>
