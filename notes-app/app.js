@@ -3,7 +3,7 @@ const $ = s => document.querySelector(s);
 const load = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } };
 const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
 
-const DEFAULTS = { base: 'https://openrouter.ai/api/v1', model: '', key: '', pin: 0.2, pout: 0.4, cap: 2 };
+const DEFAULTS = { tbase: 'https://api.groq.com/openai/v1', tmodel: 'whisper-large-v3-turbo', tkey: '', pwh: 0.04, base: 'https://openrouter.ai/api/v1', model: '', key: '', pin: 0.2, pout: 0.4, cap: 2 };
 let cfg = { ...DEFAULTS, ...load('cfg', {}) };
 let spent = load('spent', 0);
 let notes = load('notes', []);
@@ -61,30 +61,82 @@ function sync() {
   cur.transcript = $('#tTranscript').value; cur.updated = Date.now(); persist();
 }
 
-/* ---- Recording (browser speech recognition, free) ---- */
-function toggleRec() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { $('#status').textContent = 'Live transcription is not supported in this browser. Paste a transcript or use Chrome/Safari.'; return; }
-  if (recording) { recording = false; recog && recog.stop(); return; }
-  recog = new SR(); recog.continuous = true; recog.interimResults = true; recog.lang = navigator.language || 'en-US';
-  const ta = $('#tTranscript'); let base = ta.value ? ta.value.trimEnd() + '\n' : '';
-  recog.onresult = e => {
-    let fin = '', interim = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const t = e.results[i][0].transcript;
-      e.results[i].isFinal ? fin += t + ' ' : interim += t;
-    }
-    base += fin; ta.value = base + interim; sync();
+/* ---- Recording + Whisper transcription (chunked, retryable, audio kept in IndexedDB) ---- */
+const SEG_MS = 30000;
+let stream = null, mr = null, segTimer = null, segStart = 0, wake = null, chain = Promise.resolve();
+const idb = () => new Promise((res, rej) => { const r = indexedDB.open('jotter', 1); r.onupgradeneeded = () => r.result.createObjectStore('a'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+const idbPut = async (k, v) => { const d = await idb(); return new Promise(res => { const t = d.transaction('a', 'readwrite'); t.objectStore('a').put(v, k); t.oncomplete = res; t.onerror = res; }); };
+const idbGet = async k => { const d = await idb(); return new Promise(res => { const q = d.transaction('a').objectStore('a').get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(null); }); };
+const idbRemove = async k => { const d = await idb(); return new Promise(res => { const t = d.transaction('a', 'readwrite'); t.objectStore('a')['delete'](k); t.oncomplete = res; t.onerror = res; }); };
+
+function pickMime() { return ['audio/webm;codecs=opus', 'audio/mp4', 'audio/ogg;codecs=opus'].find(m => window.MediaRecorder && MediaRecorder.isTypeSupported(m)) || ''; }
+
+async function toggleRec() {
+  if (recording) return stopRec();
+  if (!cfg.tkey) { fillSettings(); $('#settings').showModal(); return; }
+  if (!window.MediaRecorder || !navigator.mediaDevices) { $('#status').textContent = 'Recording is not supported in this browser (needs HTTPS).'; return; }
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+  catch { $('#status').textContent = 'Microphone permission denied.'; return; }
+  try { wake = await navigator.wakeLock?.request('screen'); } catch {}
+  recording = true; setRec(true); setTab('transcript'); nextSeg();
+}
+
+function nextSeg() {
+  if (!recording) return;
+  const mime = pickMime(); const chunks = [];
+  const note = cur;
+  mr = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
+  const rec = mr; segStart = Date.now();
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  rec.onstop = () => {
+    const dur = (Date.now() - segStart) / 1000;
+    const blob = new Blob(chunks, { type: rec.mimeType || mime || 'audio/webm' });
+    queueSeg(note, blob, dur);
+    if (recording) nextSeg(); else { stream.getTracks().forEach(t => t.stop()); wake?.release?.(); setRec(false); }
   };
-  recog.onend = () => { if (recording) { try { recog.start(); } catch {} } else setRec(false); };
-  recog.onerror = e => { if (e.error === 'not-allowed') { recording = false; setRec(false); $('#status').textContent = 'Microphone permission denied.'; } };
-  recording = true; recog.start(); setRec(true); setTab('transcript');
+  rec.start(); segTimer = setTimeout(() => rec.state === 'recording' && rec.stop(), SEG_MS);
+}
+function stopRec() { recording = false; clearTimeout(segTimer); if (mr && mr.state === 'recording') mr.stop(); }
+
+async function queueSeg(note, blob, dur) {
+  const seg = { k: note.id + ':' + uid(), dur, done: false, text: '' };
+  note.segs = note.segs || []; note.segs.push(seg); persist();
+  await idbPut(seg.k, blob);
+  chain = chain.then(() => transcribeSeg(note, seg));
+}
+
+async function transcribeSeg(note, seg) {
+  const cost = Math.max(seg.dur, 10) / 3600 * cfg.pwh;
+  if (spent + cost > cfg.cap) { $('#status').textContent = `Transcription paused: $${cfg.cap} budget reached. Audio is saved.`; return false; }
+  const blob = await idbGet(seg.k); if (!blob) return false;
+  const ext = blob.type.includes('mp4') ? 'm4a' : blob.type.includes('ogg') ? 'ogg' : 'webm';
+  const fd = new FormData(); fd.append('file', blob, `seg.${ext}`); fd.append('model', cfg.tmodel);
+  try {
+    const r = await fetch(cfg.tbase.replace(/\/$/, '') + '/audio/transcriptions', { method: 'POST', headers: { Authorization: 'Bearer ' + cfg.tkey }, body: fd });
+    const j = await r.json(); if (!r.ok) throw new Error(j.error?.message || r.statusText);
+    spent += cost; save('spent', spent); renderSpend();
+    seg.done = true; seg.text = (j.text || '').trim(); rebuildTranscript(note); return true;
+  } catch (e) { $('#status').textContent = 'Transcription failed (use Retry): ' + e.message; return false; }
+}
+
+function rebuildTranscript(note) {
+  note.transcript = (note.segs || []).filter(s => s.done && s.text).map(s => s.text).join(' ');
+  if (cur === note) $('#tTranscript').value = note.transcript;
+  persist();
+}
+async function retryPending() {
+  if (!cur) return;
+  const note = cur;
+  for (const s of (note.segs || []).filter(s => !s.done)) { chain = chain.then(() => transcribeSeg(note, s)); }
+  await chain;
 }
 function setRec(on) { const b = $('#rec'); b.classList.toggle('live', on); b.textContent = on ? '■ Stop' : '● Record'; }
 
 /* ---- LLM with hard budget cap ---- */
 const estTokens = s => Math.ceil(s.length / 3.5);
 async function enhance() {
+  if (recording) stopRec();
+  $('#status').textContent = 'Finishing transcription…'; await new Promise(r => setTimeout(r, 400)); await chain;
   sync();
   if (!cfg.key || !cfg.model) { $('#settings').showModal(); return; }
   const prompt = `You are a meeting-notes assistant. Combine the user's rough notes with the transcript into clean, structured notes.\nUse sections: Summary, Key points, Decisions, Action items (with owners if known). Keep the user's own notes' emphasis. Don't invent facts.\n\n## My notes\n${cur.notes || '(none)'}\n\n## Transcript\n${cur.transcript || '(none)'}`;
@@ -115,14 +167,16 @@ $('#back').onclick = () => { if (recording) toggleRec(); sync(); show('list'); r
 ['#mtitle', '#tNotes', '#tTranscript'].forEach(s => $(s).addEventListener('input', sync));
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => setTab(b.dataset.tab));
 $('#rec').onclick = toggleRec;
+$('#retry').onclick = retryPending;
 $('#enhance').onclick = enhance;
 $('#copy').onclick = async () => {
   const t = tab === 'enhanced' ? cur.enhanced : tab === 'transcript' ? cur.transcript : cur.notes;
   try { await navigator.clipboard.writeText(t); $('#status').textContent = 'Copied.'; } catch { $('#status').textContent = 'Copy failed.'; }
 };
-$('#del').onclick = () => { if (confirm('Delete this meeting?')) { notes = notes.filter(n => n !== cur); persist(); cur = null; show('list'); renderList(); } };
+$('#del').onclick = () => { if (confirm('Delete this meeting?')) { (cur.segs || []).forEach(s => idbRemove(s.k)); notes = notes.filter(n => n !== cur); persist(); cur = null; show('list'); renderList(); } };
 
 function fillSettings() {
+  $('#tBase').value = cfg.tbase; $('#tModel').value = cfg.tmodel; $('#tKey').value = cfg.tkey; $('#tPrice').value = cfg.pwh;
   $('#sBase').value = cfg.base; $('#sModel').value = cfg.model; $('#sKey').value = cfg.key;
   $('#sPin').value = cfg.pin; $('#sPout').value = cfg.pout; $('#sCap').value = cfg.cap;
   $('#sSpent').textContent = `Spent so far: ${money(spent)}. Also set a spend limit on the provider key itself.`;
@@ -130,7 +184,7 @@ function fillSettings() {
 $('#openSettings').onclick = () => { fillSettings(); $('#settings').showModal(); };
 $('#sSave').onclick = () => {
   cfg = { base: $('#sBase').value.trim() || DEFAULTS.base, model: $('#sModel').value.trim(), key: $('#sKey').value.trim(),
-    pin: +$('#sPin').value || 0, pout: +$('#sPout').value || 0, cap: Math.min(+$('#sCap').value || 2, 2) };
+    tbase: $('#tBase').value.trim() || DEFAULTS.tbase, tmodel: $('#tModel').value.trim() || DEFAULTS.tmodel, tkey: $('#tKey').value.trim(), pwh: +$('#tPrice').value || 0, pin: +$('#sPin').value || 0, pout: +$('#sPout').value || 0, cap: Math.min(+$('#sCap').value || 2, 2) };
   save('cfg', cfg); renderSpend();
 };
 $('#resetSpend').onclick = () => { spent = 0; save('spent', 0); renderSpend(); fillSettings(); };

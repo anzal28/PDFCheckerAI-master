@@ -32,10 +32,11 @@
     <button data-tab="enhanced">Enhanced</button>
   </div>
   <textarea id="tNotes" placeholder="Jot rough notes here… the AI will fill in the gaps from the transcript."></textarea>
-  <textarea id="tTranscript" class="hidden" placeholder="Live transcript appears here while recording. You can also paste one."></textarea>
+  <textarea id="tTranscript" class="hidden" placeholder="Whisper transcript appears here every ~30s while recording."></textarea>
   <div id="tEnhanced" class="hidden out"></div>
   <div class="bar">
     <button id="rec" class="rec">● Record</button>
+    <button id="retry">Retry</button>
     <button id="enhance" class="primary">✨ Enhance</button>
     <button id="copy">Copy</button>
     <button id="del" class="danger">Delete</button>
@@ -48,6 +49,12 @@
 <dialog id="settings">
   <form method="dialog">
     <h2>Settings</h2>
+    <h3>Whisper transcription</h3>
+    <label>Whisper API base URL <input id="tBase"></label>
+    <label>Whisper model <input id="tModel"></label>
+    <label>Whisper API key <input id="tKey" type="password" autocomplete="off"></label>
+    <label>$ per hour of audio <input id="tPrice" type="number" step="0.001" min="0"></label>
+    <h3>Summary model</h3>
     <label>API base URL <input id="sBase" placeholder="https://openrouter.ai/api/v1"></label>
     <label>Model (use an abliterated model your provider hosts) <input id="sModel" placeholder="provider/model-abliterated"></label>
     <label>API key (stored only on this device) <input id="sKey" type="password" autocomplete="off"></label>
