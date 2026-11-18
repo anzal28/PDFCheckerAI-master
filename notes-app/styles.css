@@ -28,3 +28,5 @@ dialog{width:min(92vw,480px);background:var(--bg);color:var(--fg);border:1px sol
 dialog::backdrop{background:#0009}
 dialog label{display:block;margin:10px 0;font-size:13px;color:var(--mut)}
 .row{display:flex;gap:8px}
+#loginForm{display:grid;gap:10px;margin-top:12vh}
+h2#mtitle{margin:0 0 10px}
