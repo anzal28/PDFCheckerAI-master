@@ -44,7 +44,7 @@
 
   .choose{font-weight:600;font-size:15px;margin-bottom:14px}
   .plats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
-  .plat{width:250px;display:flex;align-items:center;gap:14px;padding:16px 18px;text-align:left;cursor:pointer;color:#fff;
+  .plat{width:220px;display:flex;align-items:center;gap:14px;padding:16px 18px;text-align:left;cursor:pointer;color:#fff;
     background:rgba(12,10,18,.7);border:1px solid var(--line);border-radius:10px;font:inherit;transition:.15s}
   .plat:hover{border-color:var(--gold);transform:translateY(-2px)}
   .plat svg{width:26px;height:26px;flex:none}
@@ -63,6 +63,27 @@
   .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--gold));transition:width .25s}
   .big{font-family:"Barlow Condensed",sans-serif;font-size:clamp(44px,12vw,72px);font-weight:800;color:var(--gold);margin:0 0 6px}
   .link{background:none;border:0;color:var(--pink);text-decoration:underline;cursor:pointer;font:inherit;margin-top:14px}
+  .store{width:min(720px,100%);background:#0d1410;border:1px solid #1f3a28;border-radius:14px;overflow:hidden;text-align:left;max-height:92vh;overflow-y:auto}
+  .store .top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:linear-gradient(90deg,#1f8a3a,#38c24f);
+    font-weight:800;letter-spacing:2px;font-size:12px}
+  .store .x{background:rgba(0,0,0,.4);border:0;color:#fff;width:24px;height:24px;border-radius:50%;cursor:pointer}
+  .store .body{padding:20px}
+  .store .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:10px;flex-wrap:wrap}
+  .store h3{margin:0;font-size:20px}
+  .chip{background:#10281a;border:1px solid #2a5a3a;color:#7dff9b;font-weight:700;font-size:12px;letter-spacing:1.5px;padding:8px 16px;border-radius:999px}
+  .eds{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .ed{background:#0a100c;border:1px solid #1f3a28;border-radius:10px;overflow:hidden;cursor:pointer;color:#fff;text-align:left;font:inherit;padding:0;transition:.15s}
+  .ed:hover{border-color:#38c24f;transform:translateY(-2px)}
+  .art{aspect-ratio:1/1.05;display:flex;align-items:center;justify-content:center;font-family:"Barlow Condensed",Impact,sans-serif;
+    font-weight:800;font-size:64px;letter-spacing:-1px;color:#fff;text-shadow:0 4px 18px rgba(0,0,0,.5)}
+  .art.a1{background:linear-gradient(135deg,#ff7eb6,#8a4fff 55%,#22d3ee)}
+  .art.a2{background:linear-gradient(135deg,#ffc24b,#ff5a7a 55%,#6a3dff)}
+  .ed .in{padding:14px 16px 18px}
+  .ed .nm{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+  .ed ul{margin:12px 0 16px;padding-left:16px;font-size:12px;color:rgba(255,255,255,.75);line-height:1.8}
+  .ed .sel{font-weight:800;font-size:12px;letter-spacing:2px;color:#4ade80}
+  .store .fine{font-size:11px;color:rgba(255,255,255,.5);margin-top:16px}
+  @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:2/1}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
 </head>
@@ -96,6 +117,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9.500"/><path d="M7 7l10 10M17 7L7 17"/></svg>
       <div><div class="t">Xbox Series X|S</div><div class="s">PRE-ORDER ›</div></div>
     </button>
+    <button class="plat" data-p="PC">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="1.500"/><path d="M8 20h8M12 16v4"/></svg>
+      <div><div class="t">PC</div><div class="s">PRE-ORDER ›</div></div>
+    </button>
   </div>
 
   <div class="stats">
@@ -103,6 +128,34 @@
   </div>
   <div class="offer">Order today to get the <b>Vintage Vice City Pack</b> at no additional cost</div>
 </section>
+
+<div class="overlay" id="storeWrap">
+  <div class="store">
+    <div class="top"><span>CHOOSE EDITION</span><button class="x" id="closeStore" aria-label="Close">✕</button></div>
+    <div class="body">
+      <div class="row"><h3>Vice City — Pre-order</h3><span class="chip" id="platChip">✓ PLATFORM</span></div>
+      <div class="eds">
+        <button class="ed" data-e="Standard Edition" data-pr="£69.99">
+          <div class="art a1">VI</div>
+          <div class="in">
+            <div class="nm"><span>Standard Edition</span><span>£69.99</span></div>
+            <ul><li>Full base game</li><li>Pre-order bonus livery pack</li><li>Vice City starter outfit</li></ul>
+            <span class="sel">SELECT →</span>
+          </div>
+        </button>
+        <button class="ed" data-e="Ultimate Edition" data-pr="£99.99">
+          <div class="art a2">VI</div>
+          <div class="in">
+            <div class="nm"><span>Ultimate Edition</span><span>£99.99</span></div>
+            <ul><li>Full base game</li><li>Expansion pass (2 story drops)</li><li>Criminal Enterprise starter pack</li><li>Exclusive vehicles &amp; weapons</li></ul>
+            <span class="sel">SELECT →</span>
+          </div>
+        </button>
+      </div>
+      <div class="fine">Demo storefront · selections are simulated locally.</div>
+    </div>
+  </div>
+</div>
 
 <div class="overlay" id="loading">
   <div class="modal"><h2>Reserving your copy…</h2><div class="bar"><i id="fill"></i></div><p id="status">Connecting…</p></div>
@@ -132,13 +185,18 @@
   let n=20002573; setInterval(()=>{n+=Math.floor(Math.random()*5)+1;po.textContent=n.toLocaleString('en-US')},1500);
 
   const msgs=["Connecting…","Checking availability…","Reserving your copy…","Applying Vintage Vice City Pack…"];
+  let plat='';
   document.querySelectorAll('.plat').forEach(b=>b.addEventListener('click',()=>{
-    loading.classList.add('show'); let p=0,i=0;
+    plat=b.dataset.p; platChip.textContent='✓ '+plat.toUpperCase(); storeWrap.classList.add('show');
+  }));
+  closeStore.addEventListener('click',()=>storeWrap.classList.remove('show'));
+  document.querySelectorAll('.ed').forEach(e=>e.addEventListener('click',()=>{
+    storeWrap.classList.remove('show'); loading.classList.add('show'); let p=0,i=0;
     const t=setInterval(()=>{
       p+=Math.random()*15+5; fill.style.width=Math.min(p,100)+'%';
       status.textContent=msgs[Math.min(i++,msgs.length-1)];
       if(p>=100){clearInterval(t);loading.classList.remove('show');
-        result.textContent=`Your ${b.dataset.p} pre-order never existed. 😉`;
+        result.textContent=`Your ${e.dataset.e} (${e.dataset.pr}) pre-order for ${plat} never existed. 😉`;
         reveal.classList.add('show');}
     },350);
   }));
