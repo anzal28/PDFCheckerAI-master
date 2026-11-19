@@ -83,6 +83,20 @@
   .ed ul{margin:12px 0 16px;padding-left:16px;font-size:12px;color:rgba(255,255,255,.75);line-height:1.8}
   .ed .sel{font-weight:800;font-size:12px;letter-spacing:2px;color:#4ade80}
   .store .fine{font-size:11px;color:rgba(255,255,255,.5);margin-top:16px}
+  .acct .back{background:none;border:0;color:rgba(255,255,255,.7);font:inherit;font-size:12px;cursor:pointer;padding:0;margin-bottom:22px}
+  .acct h3{font-size:22px;margin-bottom:6px}
+  .acct p{margin:0 0 18px;font-size:13px;color:rgba(255,255,255,.7)}
+  .find{display:flex;gap:12px}
+  .find input{flex:1;padding:14px;border-radius:8px;border:2px solid #38c24f;background:#161a17;color:#fff;font:inherit;font-size:16px;min-width:0}
+  .gbtn{background:#1f9a3a;border:0;color:#fff;font-weight:800;padding:0 26px;border-radius:8px;cursor:pointer;font:inherit;font-weight:800}
+  .gbtn:disabled{opacity:.5;cursor:not-allowed}
+  .found{display:none;margin-top:18px;align-items:center;gap:14px;background:#10281a;border:1px solid #2a5a3a;border-radius:10px;padding:14px}
+  .found.show{display:flex}
+  .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff7eb6,#ffc24b);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;flex:none}
+  .found .who{flex:1;min-width:0}
+  .found .who b{display:block;font-size:16px;overflow:hidden;text-overflow:ellipsis}
+  .found .who span{font-size:12px;color:#7dff9b}
+  .found .gbtn{padding:12px 20px}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:2/1}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -157,8 +171,29 @@
   </div>
 </div>
 
+<div class="overlay" id="acctWrap">
+  <div class="store acct">
+    <div class="top"><span>LINK ACCOUNT</span><button class="x" id="closeAcct" aria-label="Close">✕</button></div>
+    <div class="body">
+      <button class="back" id="backEd">← Back to editions</button>
+      <h3 id="acctTitle">Enter your Gamertag</h3>
+      <p id="acctSub">Who are you gifting this to?</p>
+      <div class="find">
+        <input id="tag" placeholder="e.g. ViceCityKid" maxlength="24" autocomplete="off">
+        <button class="gbtn" id="findBtn">Find</button>
+      </div>
+      <div class="found" id="found">
+        <div class="av" id="av">?</div>
+        <div class="who"><b id="foundName"></b><span id="foundSub">Profile found</span></div>
+        <button class="gbtn" id="giftBtn">Gift</button>
+      </div>
+      <div class="fine">Demo page · the name stays in this page and is not sent to any service.</div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="loading">
-  <div class="modal"><h2>Reserving your copy…</h2><div class="bar"><i id="fill"></i></div><p id="status">Connecting…</p></div>
+  <div class="modal"><h2>Sending your gift…</h2><div class="bar"><i id="fill"></i></div><p id="status">Connecting…</p></div>
 </div>
 
 <div class="overlay" id="reveal">
@@ -184,22 +219,45 @@
   // fake live counter
   let n=20002573; setInterval(()=>{n+=Math.floor(Math.random()*5)+1;po.textContent=n.toLocaleString('en-US')},1500);
 
-  const msgs=["Connecting…","Checking availability…","Reserving your copy…","Applying Vintage Vice City Pack…"];
+  const msgs=["Connecting…","Checking the profile…","Wrapping the gift…","Sending…"];
   let plat='';
   document.querySelectorAll('.plat').forEach(b=>b.addEventListener('click',()=>{
     plat=b.dataset.p; platChip.textContent='✓ '+plat.toUpperCase(); storeWrap.classList.add('show');
   }));
   closeStore.addEventListener('click',()=>storeWrap.classList.remove('show'));
+  let ed=null;
+  const idLabel={'PlayStation 5':'PSN ID','Xbox Series X|S':'Gamertag','PC':'username'};
   document.querySelectorAll('.ed').forEach(e=>e.addEventListener('click',()=>{
-    storeWrap.classList.remove('show'); loading.classList.add('show'); let p=0,i=0;
+    ed=e.dataset; storeWrap.classList.remove('show');
+    const l=idLabel[plat]||'username';
+    acctTitle.textContent=`Enter your friend's ${l}`;
+    acctSub.textContent=`We'll attach ${ed.e} to this profile on release day.`;
+    tag.value=''; found.classList.remove('show'); acctWrap.classList.add('show'); tag.focus();
+  }));
+  closeAcct.addEventListener('click',()=>acctWrap.classList.remove('show'));
+  backEd.addEventListener('click',()=>{acctWrap.classList.remove('show');storeWrap.classList.add('show')});
+  function doFind(){
+    const v=tag.value.trim(); if(!v){tag.focus();return}
+    findBtn.disabled=true; findBtn.textContent='…';
+    setTimeout(()=>{
+      findBtn.disabled=false; findBtn.textContent='Find';
+      foundName.textContent=v; av.textContent=v[0].toUpperCase(); found.classList.add('show');
+    },700);
+  }
+  findBtn.addEventListener('click',doFind);
+  tag.addEventListener('keydown',e=>{if(e.key==='Enter')doFind()});
+  tag.addEventListener('input',()=>found.classList.remove('show'));
+  giftBtn.addEventListener('click',()=>{
+    acctWrap.classList.remove('show'); loading.classList.add('show'); let p=0,i=0;
+    const name=foundName.textContent;
     const t=setInterval(()=>{
       p+=Math.random()*15+5; fill.style.width=Math.min(p,100)+'%';
       status.textContent=msgs[Math.min(i++,msgs.length-1)];
       if(p>=100){clearInterval(t);loading.classList.remove('show');
-        result.textContent=`Your ${e.dataset.e} (${e.dataset.pr}) pre-order for ${plat} never existed. 😉`;
+        result.textContent=`The ${ed.e} (${ed.pr}) gift for ${name} on ${plat} was never sent. 😉`;
         reveal.classList.add('show');}
     },350);
-  }));
+  });
   back.addEventListener('click',()=>{reveal.classList.remove('show');fill.style.width='0'});
 </script>
 </body>
