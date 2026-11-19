@@ -37,8 +37,7 @@
   h1 .g{background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
   .lead{max-width:560px;margin:0 auto 26px;color:rgba(255,255,255,.78);font-size:16px;line-height:1.5}
 
-  .count{display:flex;gap:12px;justify-content:center;margin-bottom:30px}
-  .box{width:84px;padding:14px 0 10px;border:1px solid var(--line);border-radius:10px;background:rgba(12,10,18,.6);backdrop-filter:blur(6px)}
+    .box{width:84px;padding:14px 0 10px;border:1px solid var(--line);border-radius:10px;background:rgba(12,10,18,.6);backdrop-filter:blur(6px)}
   .box .n{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:38px;line-height:1}
   .box .l{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.55);margin-top:6px}
 
@@ -131,53 +130,46 @@
 <section class="hero">
   <div class="shade"></div>
   <div class="pills">
-    <span class="pill"><span class="dot"></span>Releases <b id="rel">November 19, 2026</b></span>
+    <span class="pill"><span class="dot"></span><b id="rel">Out now</b> · November 19, 2026</span>
     <span class="pill">M · MATURE 17+</span>
   </div>
 
   <h1>Welcome back to <span class="g">Vice City.</span></h1>
-  <p class="lead">The biggest, most immersive evolution of the series yet.<br>Reserve your copy — first wave ships day one.</p>
+  <p class="lead">The biggest, most immersive evolution of the series yet.<br>Out now — gift a copy to a friend today.</p>
 
-  <div class="count" id="count">
-    <div class="box"><div class="n" id="d">63</div><div class="l">DAYS</div></div>
-    <div class="box"><div class="n" id="h">09</div><div class="l">HOURS</div></div>
-    <div class="box"><div class="n" id="m">22</div><div class="l">MIN</div></div>
-    <div class="box"><div class="n" id="s">25</div><div class="l">SEC</div></div>
-  </div>
-
-  <div class="choose">Choose your platform to pre-order</div>
+  <div class="choose">Choose a platform to gift</div>
   <div class="plats">
     <button class="plat" data-p="PlayStation 5">
       <svg viewBox="0 0 24 24" fill="#fff"><path d="M9 3v16l3 1V6c0-.7.3-1 .8-.8 1 .3 1.2 1.2 1.2 2.4v5.5c2 1 3.600 0 3.600-2.800 0-2.900-1-4.200-3.800-5.100C11.600 4.500 10 3.900 9 3zm-5 13.500l5-1.800v-1.700l-5 1.800zm10.500-1l5-1.800c.8-.3 1-.9 0-1.200-.6-.2-1.600-.2-2.200 0l-2.800 1v1.700z"/></svg>
-      <div><div class="t">PlayStation 5</div><div class="s">PRE-ORDER ›</div></div>
+      <div><div class="t">PlayStation 5</div><div class="s">GIFT NOW ›</div></div>
     </button>
     <button class="plat" data-p="Xbox Series X|S">
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9.500"/><path d="M7 7l10 10M17 7L7 17"/></svg>
-      <div><div class="t">Xbox Series X|S</div><div class="s">PRE-ORDER ›</div></div>
+      <div><div class="t">Xbox Series X|S</div><div class="s">GIFT NOW ›</div></div>
     </button>
     <button class="plat" data-p="PC">
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="1.500"/><path d="M8 20h8M12 16v4"/></svg>
-      <div><div class="t">PC</div><div class="s">PRE-ORDER ›</div></div>
+      <div><div class="t">PC</div><div class="s">GIFT NOW ›</div></div>
     </button>
   </div>
 
   <div class="stats">
-    <span><span class="dot"></span>&nbsp; <b id="po">20,002,573</b> pre-orders in the last 24h</span>
+    <span><span class="dot"></span>&nbsp; <b id="po">20,002,573</b> copies gifted in the last 24h</span>
   </div>
-  <div class="offer">Order today to get the <b>Vintage Vice City Pack</b> at no additional cost</div>
+  <div class="offer">Gift today and get the <b>Vintage Vice City Pack</b> at no additional cost</div>
 </section>
 
 <div class="overlay" id="storeWrap">
   <div class="store">
     <div class="top"><span>CHOOSE EDITION</span><button class="x" id="closeStore" aria-label="Close">✕</button></div>
     <div class="body">
-      <div class="row"><h3>Vice City — Pre-order</h3><span class="chip" id="platChip">✓ PLATFORM</span></div>
+      <div class="row"><h3>Vice City — Gift a copy</h3><span class="chip" id="platChip">✓ PLATFORM</span></div>
       <div class="eds">
         <button class="ed" data-e="Standard Edition" data-pr="£69.99">
           <div class="art a1">VI</div>
           <div class="in">
             <div class="nm"><span>Standard Edition</span><span>£69.99</span></div>
-            <ul><li>Full base game</li><li>Pre-order bonus livery pack</li><li>Vice City starter outfit</li></ul>
+            <ul><li>Full base game</li><li>Bonus livery pack</li><li>Vice City starter outfit</li></ul>
             <span class="sel">SELECT →</span>
           </div>
         </button>
@@ -224,7 +216,7 @@
       <div class="coHead">
         <div class="art a1 mini">VI</div>
         <div>
-          <div class="eyebrow">GIFT PRE-ORDER</div>
+          <div class="eyebrow">DIGITAL GIFT</div>
           <h3 id="coName" style="margin:4px 0">Standard Edition</h3>
           <div class="eyebrow">Delivers to <b id="coTo" style="color:#fff"></b></div>
           <div class="eyebrow" id="coPlat" style="margin-top:6px"></div>
@@ -266,15 +258,6 @@
 </div>
 
 <script>
-  // countdown (cosmetic only)
-  const end=Date.now()+((63*24+9)*3600+22*60+25)*1000;
-  const pad=n=>String(n).padStart(2,'0');
-  function tick(){
-    let t=Math.max(0,Math.floor((end-Date.now())/1000));
-    d.textContent=Math.floor(t/86400); h.textContent=pad(Math.floor(t%86400/3600));
-    m.textContent=pad(Math.floor(t%3600/60)); s.textContent=pad(t%60);
-  }
-  tick(); setInterval(tick,1000);
   // fake live counter
   let n=20002573; setInterval(()=>{n+=Math.floor(Math.random()*5)+1;po.textContent=n.toLocaleString('en-US')},1500);
 
@@ -289,7 +272,7 @@
     ed=e.dataset; storeWrap.classList.remove('show');
     const l=idLabel[plat]||'username';
     acctTitle.textContent=`Enter your friend's ${l}`;
-    acctSub.textContent=`We'll attach ${ed.e} to this profile on release day.`;
+    acctSub.textContent=`We'll attach ${ed.e} to this profile straight away.`;
     tag.value=''; found.classList.remove('show'); acctWrap.classList.add('show'); tag.focus();
   }));
   closeAcct.addEventListener('click',()=>acctWrap.classList.remove('show'));
@@ -323,7 +306,7 @@
   async function playGift(){
     procView.style.display='block'; okView.style.display='none'; fx.classList.add('show');
     await sleep(3200);
-    result.textContent=`${ed.e} is reserved for ${name} on ${plat}.`;
+    result.textContent=`${ed.e} is on its way to ${name} on ${plat}.`;
     rcTo.textContent=name; rcEd.textContent=ed.e; rcPl.textContent=plat;
     rcDt.textContent=new Date().toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
     procView.style.display='none'; okView.style.display='block';
