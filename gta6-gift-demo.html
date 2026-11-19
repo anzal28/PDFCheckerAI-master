@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEMO – Vice City Gift Shop (Not Real)</title>
+<style>
+  :root{--pink:#ff3d8b;--orange:#ff9a3c;--teal:#22d3ee;--bg:#12081f;--card:#1e1033;--text:#fff}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);
+    background:linear-gradient(180deg,#2a0b4a 0%,#7a1f6e 35%,#ff6a5c 70%,#ffb347 100%) fixed;min-height:100vh}
+  /* repeating DEMO watermark */
+  body::before{content:"DEMO • DEMO • DEMO • DEMO • DEMO • DEMO • DEMO • DEMO";position:fixed;inset:-50%;
+    font:900 64px/120px system-ui;color:rgba(255,255,255,.06);transform:rotate(-20deg);
+    word-spacing:40px;pointer-events:none;z-index:0;overflow:hidden;white-space:normal;text-align:center}
+  .banner{position:sticky;top:0;z-index:10;background:#ffd400;color:#000;text-align:center;font-weight:800;
+    padding:8px 12px;letter-spacing:.5px;font-size:14px}
+  main{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:24px 16px 60px}
+  header{text-align:center;padding:36px 0 12px}
+  .tag{display:inline-block;border:2px solid #ffd400;color:#ffd400;padding:2px 10px;border-radius:6px;
+    font-weight:800;font-size:12px;letter-spacing:2px}
+  h1{font-size:clamp(40px,10vw,86px);margin:14px 0 4px;line-height:.95;font-weight:900;letter-spacing:-1px;
+    background:linear-gradient(90deg,var(--teal),var(--pink),var(--orange));-webkit-background-clip:text;
+    background-clip:text;color:transparent;text-shadow:0 0 40px rgba(255,61,139,.3)}
+  .sub{opacity:.9;font-size:18px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:28px 0}
+  .card{background:rgba(30,16,51,.85);border:2px solid transparent;border-radius:16px;padding:20px;cursor:pointer;
+    transition:.15s;text-align:left;color:inherit;font:inherit;position:relative}
+  .card:hover{transform:translateY(-3px)}
+  .card.sel{border-color:var(--teal);box-shadow:0 0 24px rgba(34,211,238,.35)}
+  .card h3{margin:0 0 6px;font-size:20px}
+  .price{font-size:26px;font-weight:900;color:var(--orange)}
+  .card small{display:block;opacity:.75;margin-top:6px}
+  .pill{position:absolute;top:12px;right:12px;background:var(--pink);font-size:11px;font-weight:800;padding:3px 8px;border-radius:99px}
+  .panel{background:rgba(30,16,51,.85);border-radius:16px;padding:20px;margin-bottom:16px}
+  label{display:block;font-weight:700;margin-bottom:6px}
+  input,textarea{width:100%;padding:12px;border-radius:10px;border:2px solid #4b2d78;background:#12081f;color:#fff;font:inherit}
+  textarea{min-height:80px;resize:vertical}
+  .btn{width:100%;padding:16px;border:0;border-radius:12px;font-size:18px;font-weight:900;color:#fff;cursor:pointer;
+    background:linear-gradient(90deg,var(--pink),var(--orange))}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .note{font-size:12px;opacity:.75;text-align:center;margin-top:10px}
+  .overlay{position:fixed;inset:0;z-index:20;background:rgba(10,4,20,.92);display:none;align-items:center;
+    justify-content:center;text-align:center;padding:24px}
+  .overlay.show{display:flex}
+  .box{max-width:460px}
+  .bar{height:12px;background:#3a2260;border-radius:99px;overflow:hidden;margin:18px 0}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--pink));transition:width .2s}
+  .big{font-size:clamp(34px,9vw,60px);font-weight:900;color:#ffd400;margin:0 0 8px}
+  .link{background:none;border:0;color:var(--teal);text-decoration:underline;cursor:pointer;font:inherit;margin-top:14px}
+  footer{text-align:center;font-size:12px;opacity:.8;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="banner">⚠️ DEMO ONLY — FAKE PAGE, NOT A REAL STORE, NOTHING IS SOLD OR SENT ⚠️</div>
+
+<main>
+  <header>
+    <span class="tag">DEMO • NOT REAL</span>
+    <h1>VICE CITY<br>GIFT SHOP</h1>
+    <p class="sub">Gift the big game to a friend — <b>(DEMO prank page)</b></p>
+  </header>
+
+  <div class="grid" id="editions">
+    <button class="card" data-name="Standard Edition (DEMO)" data-price="£69.99">
+      <h3>Standard Edition</h3><div class="price">£69.99</div><small>Base game · DEMO listing</small>
+    </button>
+    <button class="card" data-name="Deluxe Edition (DEMO)" data-price="£89.99">
+      <span class="pill">POPULAR</span>
+      <h3>Deluxe Edition</h3><div class="price">£89.99</div><small>Bonus cars &amp; outfits · DEMO listing</small>
+    </button>
+    <button class="card" data-name="Ultimate Edition (DEMO)" data-price="£119.99">
+      <h3>Ultimate Edition</h3><div class="price">£119.99</div><small>Everything · DEMO listing</small>
+    </button>
+  </div>
+
+  <div class="panel">
+    <label for="friend">Friend's nickname (stays in your browser — nothing is sent anywhere)</label>
+    <input id="friend" placeholder="e.g. Big Dave" maxlength="30">
+    <br><br>
+    <label for="msg">Gift message</label>
+    <textarea id="msg" maxlength="140" placeholder="Happy birthday! (DEMO)"></textarea>
+  </div>
+
+  <button class="btn" id="send" disabled>SEND GIFT (DEMO)</button>
+  <p class="note">No payment details are requested. This is a joke page with no real checkout.</p>
+
+  <footer>DEMO • Fan-made prank • Not affiliated with any game publisher or store • Nothing here is real</footer>
+</main>
+
+<div class="overlay" id="loading">
+  <div class="box">
+    <h2>Processing your gift… (DEMO)</h2>
+    <div class="bar"><i id="fill"></i></div>
+    <p id="status">Contacting fake servers…</p>
+  </div>
+</div>
+
+<div class="overlay" id="reveal">
+  <div class="box">
+    <p class="big">GOTCHA! 😂</p>
+    <h2>This was a DEMO prank page</h2>
+    <p id="result"></p>
+    <p>No game was sent, nothing was charged, and no data left your device.</p>
+    <button class="link" id="again">Go back</button>
+  </div>
+</div>
+
+<script>
+  let chosen=null;
+  const cards=document.querySelectorAll('.card'), send=document.getElementById('send');
+  cards.forEach(c=>c.addEventListener('click',()=>{
+    cards.forEach(x=>x.classList.remove('sel')); c.classList.add('sel');
+    chosen={name:c.dataset.name,price:c.dataset.price}; send.disabled=false;
+  }));
+
+  const steps=["Contacting fake servers…","Checking friend's (imaginary) account…","Wrapping the gift (DEMO)…","Almost there…"];
+  send.addEventListener('click',()=>{
+    const load=document.getElementById('loading'), fill=document.getElementById('fill'), st=document.getElementById('status');
+    load.classList.add('show'); let p=0,i=0;
+    const t=setInterval(()=>{
+      p+=Math.random()*14+4; fill.style.width=Math.min(p,100)+'%';
+      st.textContent=steps[Math.min(i++%steps.length,steps.length-1)];
+      if(p>=100){
+        clearInterval(t); load.classList.remove('show');
+        const f=document.getElementById('friend').value.trim()||'your friend';
+        document.getElementById('result').textContent=
+          `"${chosen.name}" for ${f} was never really gifted. (${chosen.price} — fake price, DEMO.)`;
+        document.getElementById('reveal').classList.add('show');
+      }
+    },350);
+  });
+  document.getElementById('again').addEventListener('click',()=>{
+    document.getElementById('reveal').classList.remove('show');
+    document.getElementById('fill').style.width='0';
+  });
+</script>
+</body>
+</html>
