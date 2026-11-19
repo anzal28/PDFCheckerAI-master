@@ -108,6 +108,53 @@
   .pay{background:#0a100c;border:1px dashed #2a5a3a;border-radius:10px;padding:16px;font-size:13px;color:rgba(255,255,255,.75)}
   .cbtn{width:100%;margin-top:18px;padding:16px;border:0;border-radius:6px;background:#1f9a3a;color:#fff;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
   .cbtn:hover{background:#27b248}
+  /* gift animation */
+  .overlay.fx{background:radial-gradient(ellipse at 50% 55%,#4a1659 0%,#150a26 55%,#07040f 100%);overflow:hidden}
+  #conf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+  .floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;transform:perspective(380px) rotateX(62deg);
+    background:linear-gradient(rgba(255,126,182,.55) 1px,transparent 1px) 0 0/60px 60px,linear-gradient(90deg,rgba(34,211,238,.45) 1px,transparent 1px) 0 0/60px 60px;
+    animation:grid 1.2s linear infinite;mask-image:linear-gradient(transparent,#000 60%);-webkit-mask-image:linear-gradient(transparent,#000 60%)}
+  @keyframes grid{to{background-position:0 60px,60px 0}}
+  .fxstage{position:relative;z-index:2;width:min(560px,100%);height:440px}
+  .fxload,.fxbox,.fxdone{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
+  .fxbox,.fxdone{opacity:0;pointer-events:none}
+  .fxdone.on{opacity:1;pointer-events:auto}
+  .fxbox.on{opacity:1}
+  .fxbox.off{opacity:0}
+  .fxload{width:min(380px,92%);left:50%;transform:translateX(-50%)}
+  .glitch{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:44px;letter-spacing:6px;color:#fff;
+    animation:glitch .9s infinite steps(2)}
+  @keyframes glitch{0%{text-shadow:3px 0 #ff3d8b,-3px 0 #22d3ee}50%{text-shadow:-3px 1px #ff3d8b,3px -1px #22d3ee;transform:translateX(2px)}100%{text-shadow:2px 0 #ff3d8b,-2px 0 #22d3ee}}
+  .fxload .bar{width:100%;height:8px;box-shadow:0 0 18px rgba(255,126,182,.5)}
+  .fxload p{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+  /* box */
+  .beams{position:absolute;left:50%;top:48%;width:760px;height:760px;margin:-380px 0 0 -380px;opacity:0;
+    background:repeating-conic-gradient(from 0deg,rgba(255,215,120,.5) 0 6deg,transparent 6deg 20deg);
+    mask-image:radial-gradient(circle,#000 0,transparent 68%);-webkit-mask-image:radial-gradient(circle,#000 0,transparent 68%)}
+  .fxbox.on .beams{animation:beamIn .6s 1.25s forwards,spin 6s 1.25s linear infinite}
+  @keyframes beamIn{to{opacity:1}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ring{position:absolute;left:50%;top:48%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:4px solid #ffc24b;opacity:0}
+  .fxbox.on .ring{animation:ring 1s 1.25s ease-out forwards}
+  .fxbox.on .ring.r2{animation-delay:1.45s;border-color:#ff7eb6}
+  @keyframes ring{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(22)}}
+  .gbox{position:relative;width:130px;height:130px;opacity:0}
+  .fxbox.on .gbox{animation:rise .55s ease-out forwards,shake .75s .55s ease-in-out,glow 1s 1.3s forwards}
+  @keyframes rise{from{opacity:0;transform:translateY(120px) scale(.4)}to{opacity:1;transform:none}}
+  @keyframes shake{0%,100%{transform:rotate(0)}15%{transform:rotate(-9deg) scale(1.04)}30%{transform:rotate(8deg) scale(1.06)}45%{transform:rotate(-7deg) scale(1.08)}60%{transform:rotate(6deg) scale(1.1)}80%{transform:rotate(-3deg) scale(1.12)}}
+  @keyframes glow{to{opacity:1;filter:drop-shadow(0 0 30px #ffc24b)}}
+  .bx{position:absolute;left:0;right:0;bottom:0;height:90px;border-radius:8px;background:linear-gradient(135deg,#ff3d8b,#8a4fff)}
+  .bx::after,.lid::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:22px;margin-left:-11px;background:#ffd86b}
+  .lid{position:absolute;left:-9px;right:-9px;top:0;height:44px;border-radius:8px;background:linear-gradient(135deg,#ffc24b,#ff5a7a);z-index:2}
+  .fxbox.on .lid{animation:lid .7s 1.25s cubic-bezier(.2,.8,.3,1) forwards}
+  @keyframes lid{to{transform:translate(70px,-210px) rotate(32deg);opacity:0}}
+  /* done */
+  .fxtitle{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:clamp(56px,16vw,104px);line-height:1;letter-spacing:2px;
+    background:linear-gradient(90deg,#22d3ee,#ff7eb6,#ffc24b);-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 26px rgba(255,126,182,.55))}
+  .fxdone.on .fxtitle{animation:pop .7s cubic-bezier(.2,1.6,.4,1)}
+  @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+  .fxdone p{max-width:420px;margin:14px 0 26px;color:rgba(255,255,255,.88);font-size:16px;line-height:1.5}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:2/1}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -230,17 +277,24 @@
   </div>
 </div>
 
-<div class="overlay" id="loading">
-  <div class="modal"><h2>Sending your gift…</h2><div class="bar"><i id="fill"></i></div><p id="status">Connecting…</p></div>
-</div>
-
-<div class="overlay" id="reveal">
-  <div class="modal">
-    <p class="big">GOTCHA! 😂</p>
-    <h2>This was a demo prank page</h2>
-    <p id="result"></p>
-    <p>Nothing was ordered, nothing was charged, and no data left your device.</p>
-    <button class="link" id="back">Go back</button>
+<div class="overlay fx" id="fx">
+  <canvas id="conf"></canvas>
+  <div class="floor"></div>
+  <div class="fxstage">
+    <div class="fxload" id="fxLoad">
+      <div class="glitch">SENDING GIFT</div>
+      <div class="bar"><i id="fill"></i></div>
+      <p id="status">Connecting…</p>
+    </div>
+    <div class="fxbox" id="fxBox">
+      <div class="beams"></div><div class="ring"></div><div class="ring r2"></div>
+      <div class="gbox"><div class="lid"></div><div class="bx"></div></div>
+    </div>
+    <div class="fxdone" id="fxDone">
+      <div class="fxtitle">GIFT SENT</div>
+      <p id="result"></p>
+      <button class="gbtn" id="back" style="padding:14px 44px;font-size:16px">Done</button>
+    </div>
   </div>
 </div>
 
@@ -297,16 +351,34 @@
   coBack.addEventListener('click',()=>{coWrap.classList.remove('show');acctWrap.classList.add('show')});
   closeCo.addEventListener('click',()=>coWrap.classList.remove('show'));
   confirmBtn.addEventListener('click',()=>{
-    coWrap.classList.remove('show'); loading.classList.add('show'); let p=0,i=0;
-    const t=setInterval(()=>{
-      p+=Math.random()*15+5; fill.style.width=Math.min(p,100)+'%';
-      status.textContent=msgs[Math.min(i++,msgs.length-1)];
-      if(p>=100){clearInterval(t);loading.classList.remove('show');
-        result.textContent=`The ${ed.e} (${ed.pr}) gift for ${name} on ${plat} was never sent. 😉`;
-        reveal.classList.add('show');}
-    },350);
+    coWrap.classList.remove('show'); playGift();
   });
-  back.addEventListener('click',()=>{reveal.classList.remove('show');fill.style.width='0'});
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  async function playGift(){
+    const steps=["Connecting…","Locating profile…","Wrapping your gift…","Adding the bonus pack…","Sending…"];
+    fxBox.className='fxbox'; fxDone.className='fxdone'; fxLoad.style.display='flex'; fxLoad.style.opacity=1;
+    fill.style.width='0'; fx.classList.add('show');
+    for(let i=0;i<steps.length;i++){status.textContent=steps[i];fill.style.width=((i+1)/steps.length*100)+'%';await sleep(700);}
+    fxLoad.style.opacity=0; await sleep(400); fxLoad.style.display='none';
+    fxBox.classList.add('on'); await sleep(1750);
+    burst(); fxBox.classList.add('off');
+    result.textContent=`${ed.e} is on its way to ${name} on ${plat}. Enjoy, legend!`;
+    fxDone.classList.add('on');
+  }
+  function burst(){
+    const c=conf,x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+    const cols=['#ff7eb6','#ffc24b','#22d3ee','#8a4fff','#4ade80','#ffffff'];
+    const ps=Array.from({length:220},()=>({x:innerWidth/2,y:innerHeight*.45,vx:(Math.random()-.5)*20,vy:-Math.random()*17-4,
+      s:Math.random()*9+4,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[Math.random()*cols.length|0]}));
+    let f=0;
+    (function step(){
+      x.clearRect(0,0,c.width,c.height);
+      ps.forEach(p=>{p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;
+        x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore();});
+      if(++f<240)requestAnimationFrame(step);else x.clearRect(0,0,c.width,c.height);
+    })();
+  }
+  back.addEventListener('click',()=>{fx.classList.remove('show')});
 </script>
 </body>
 </html>
