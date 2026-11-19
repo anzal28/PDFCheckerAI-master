@@ -129,26 +129,26 @@
   .rcpt span{color:rgba(255,255,255,.55)}
   .pcard p{margin:0 auto 26px;max-width:400px;color:rgba(255,255,255,.8);font-size:14px;line-height:1.5}
   /* bounce-in animations */
-  .overlay.show{animation:ovIn .25s ease-out}
+  .overlay.show{animation:ovIn .15s ease-out}
   @keyframes ovIn{from{opacity:0}to{opacity:1}}
-  .overlay.show .store,.overlay.show .pcard{animation:bounceIn .6s cubic-bezier(.34,1.56,.64,1)}
+  .overlay.show .store,.overlay.show .pcard{animation:bounceIn .3s cubic-bezier(.34,1.56,.64,1)}
   @keyframes bounceIn{0%{opacity:0;transform:scale(.6) translateY(40px)}60%{opacity:1}100%{opacity:1;transform:none}}
-  .overlay.show .ed{animation:cardUp .55s cubic-bezier(.34,1.56,.64,1) backwards}
-  .overlay.show .ed:nth-child(1){animation-delay:.12s}
-  .overlay.show .ed:nth-child(2){animation-delay:.24s}
+  .overlay.show .ed{animation:cardUp .3s cubic-bezier(.34,1.56,.64,1) backwards}
+  .overlay.show .ed:nth-child(1){animation-delay:.05s}
+  .overlay.show .ed:nth-child(2){animation-delay:.1s}
   @keyframes cardUp{from{opacity:0;transform:translateY(50px) scale(.9)}to{opacity:1;transform:none}}
-  .overlay.show .chip{animation:chipPop .5s .3s cubic-bezier(.34,1.8,.64,1) backwards}
+  .overlay.show .chip{animation:chipPop .3s .12s cubic-bezier(.34,1.8,.64,1) backwards}
   @keyframes chipPop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
-  .found.show .av{animation:avPop .6s .1s cubic-bezier(.34,1.8,.64,1) backwards}
+  .found.show .av{animation:avPop .3s .05s cubic-bezier(.34,1.8,.64,1) backwards}
   @keyframes avPop{from{transform:scale(0) rotate(-40deg)}to{transform:none}}
-  .found.show .gbtn{animation:btnBounce .6s .3s cubic-bezier(.34,1.8,.64,1) backwards}
+  .found.show .gbtn{animation:btnBounce .3s .12s cubic-bezier(.34,1.8,.64,1) backwards}
   @keyframes btnBounce{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:none}}
-  .plat{transition:transform .25s cubic-bezier(.34,1.8,.64,1),border-color .15s}
+  .plat{transition:transform .15s cubic-bezier(.34,1.8,.64,1),border-color .15s}
   .plat:hover{transform:translateY(-4px) scale(1.04)}
   .plat:active{transform:scale(.96)}
-  .ed:hover{transform:translateY(-6px) scale(1.02);transition:transform .3s cubic-bezier(.34,1.8,.64,1),border-color .15s,box-shadow .15s}
+  .ed:hover{transform:translateY(-6px) scale(1.02);transition:transform .18s cubic-bezier(.34,1.8,.64,1),border-color .15s,box-shadow .15s}
   .gbtn:active,.cbtn:active{transform:scale(.95)}
-  .ok{animation:okBounce .7s cubic-bezier(.34,1.9,.64,1) .1s backwards}
+  .ok{animation:okBounce .35s cubic-bezier(.34,1.9,.64,1) .05s backwards}
   @keyframes okBounce{from{transform:scale(0)}to{transform:none}}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
