@@ -90,13 +90,20 @@
   .find input{flex:1;padding:14px;border-radius:8px;border:2px solid #38c24f;background:#161a17;color:#fff;font:inherit;font-size:16px;min-width:0}
   .gbtn{background:#1f9a3a;border:0;color:#fff;font-weight:800;padding:0 26px;border-radius:8px;cursor:pointer;font:inherit;font-weight:800}
   .gbtn:disabled{opacity:.5;cursor:not-allowed}
-  .found{display:none;margin-top:18px;align-items:center;gap:14px;background:#10281a;border:1px solid #2a5a3a;border-radius:10px;padding:14px}
-  .found.show{display:flex}
-  .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff7eb6,#ffc24b);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;flex:none}
+  .found{display:none;margin-top:20px;align-items:center;gap:16px;padding:16px 18px;border-radius:14px;
+    background:linear-gradient(135deg,#12301d,#0d1f15);border:1px solid #2f7a46;box-shadow:0 8px 28px rgba(31,154,58,.18)}
+  .found.show{display:flex;animation:slideIn .35s ease-out}
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .av{position:relative;width:54px;height:54px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:22px;color:#1a0f2e;background:linear-gradient(135deg,#ff7eb6,#ffc24b);box-shadow:0 0 0 3px #0d1f15,0 0 0 5px #38c24f}
+  .av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:14px;height:14px;border-radius:50%;background:#3ddc84;border:3px solid #0d1f15}
   .found .who{flex:1;min-width:0}
-  .found .who b{display:block;font-size:16px;overflow:hidden;text-overflow:ellipsis}
-  .found .who span{font-size:12px;color:#7dff9b}
-  .found .gbtn{padding:12px 20px}
+  .found .who b{display:block;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .found .who span{display:inline-flex;align-items:center;gap:6px;margin-top:4px;font-size:12px;font-weight:600;color:#7dff9b}
+  .found .who span::before{content:"✓";display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:#3ddc84;color:#0d1f15;font-size:10px;font-weight:800}
+  .found .gbtn{padding:14px 26px;font-size:15px;border-radius:10px;background:linear-gradient(180deg,#27b248,#1f9a3a);box-shadow:0 4px 14px rgba(39,178,72,.35);transition:.15s}
+  .found .gbtn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(39,178,72,.5)}
+  @media(max-width:420px){.found{flex-wrap:wrap}.found .gbtn{width:100%}}
   .co .coHead{display:flex;gap:16px;align-items:center;padding-bottom:18px;border-bottom:1px solid #1f3a28;margin-bottom:18px}
   .co .mini{width:84px;height:104px;aspect-ratio:auto;border-radius:6px;flex:none}
   .eyebrow{font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,.55)}
@@ -198,7 +205,7 @@
       <div class="found" id="found">
         <div class="av" id="av">?</div>
         <div class="who"><b id="foundName"></b><span id="foundSub">Profile found</span></div>
-        <button class="gbtn" id="giftBtn">Gift</button>
+        <button class="gbtn" id="giftBtn">🎁 Gift</button>
       </div>
       <div class="fine">Demo page · the name stays in this page and is not sent to any service.</div>
     </div>
