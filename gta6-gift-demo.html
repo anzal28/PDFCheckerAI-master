@@ -97,6 +97,17 @@
   .found .who b{display:block;font-size:16px;overflow:hidden;text-overflow:ellipsis}
   .found .who span{font-size:12px;color:#7dff9b}
   .found .gbtn{padding:12px 20px}
+  .co .coHead{display:flex;gap:16px;align-items:center;padding-bottom:18px;border-bottom:1px solid #1f3a28;margin-bottom:18px}
+  .co .mini{width:84px;height:96px;aspect-ratio:auto;font-size:34px;border-radius:6px;flex:none}
+  .eyebrow{font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,.55)}
+  .sum{background:#0a100c;border:1px solid #1f3a28;border-radius:10px;padding:4px 16px}
+  .sum>div{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #1a2a20;font-size:13px}
+  .sum>div:last-child{border:0}
+  .sum .dim{color:rgba(255,255,255,.6)}
+  .sum .tot{font-weight:800;font-size:15px}
+  .pay{background:#0a100c;border:1px dashed #2a5a3a;border-radius:10px;padding:16px;font-size:13px;color:rgba(255,255,255,.75)}
+  .cbtn{width:100%;margin-top:18px;padding:16px;border:0;border-radius:6px;background:#1f9a3a;color:#fff;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
+  .cbtn:hover{background:#27b248}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:2/1}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -192,6 +203,33 @@
   </div>
 </div>
 
+<div class="overlay" id="coWrap">
+  <div class="store co">
+    <div class="top"><span>CHECKOUT</span><button class="x" id="closeCo" aria-label="Close">✕</button></div>
+    <div class="body">
+      <button class="back" id="coBack" style="background:none;border:0;color:rgba(255,255,255,.7);font:inherit;font-size:12px;cursor:pointer;padding:0;margin-bottom:18px">← Back</button>
+      <div class="coHead">
+        <div class="art a1 mini">VI</div>
+        <div>
+          <div class="eyebrow">GIFT PRE-ORDER</div>
+          <h3 id="coName" style="margin:4px 0">Standard Edition</h3>
+          <div class="eyebrow">Delivers to <b id="coTo" style="color:#fff"></b></div>
+          <div class="eyebrow" id="coPlat" style="margin-top:6px"></div>
+        </div>
+      </div>
+      <div class="sum">
+        <div><span id="coLine"></span><b id="coLinePr"></b></div>
+        <div class="dim"><span>VAT (included)</span><span id="coVat"></span></div>
+        <div class="tot"><span>Total</span><b id="coTotal"></b></div>
+      </div>
+      <div class="eyebrow" style="margin:20px 0 8px">PAYMENT METHOD</div>
+      <div class="pay">Demo payment · no card needed, nothing is charged</div>
+      <button class="cbtn" id="confirmBtn">Confirm gift</button>
+      <div class="fine">Demo page · this is not a real checkout.</div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="loading">
   <div class="modal"><h2>Sending your gift…</h2><div class="bar"><i id="fill"></i></div><p id="status">Connecting…</p></div>
 </div>
@@ -247,9 +285,19 @@
   findBtn.addEventListener('click',doFind);
   tag.addEventListener('keydown',e=>{if(e.key==='Enter')doFind()});
   tag.addEventListener('input',()=>found.classList.remove('show'));
+  let name='';
   giftBtn.addEventListener('click',()=>{
-    acctWrap.classList.remove('show'); loading.classList.add('show'); let p=0,i=0;
-    const name=foundName.textContent;
+    name=foundName.textContent;
+    const price=parseFloat(ed.pr.replace('£',''));
+    coName.textContent=ed.e; coPlat.textContent=plat.toUpperCase(); coTo.textContent=name;
+    coLine.textContent=ed.e; coLinePr.textContent=ed.pr;
+    coVat.textContent='£'+(price/6).toFixed(2); coTotal.textContent=ed.pr; confirmBtn.textContent='Confirm gift · '+ed.pr;
+    acctWrap.classList.remove('show'); coWrap.classList.add('show');
+  });
+  coBack.addEventListener('click',()=>{coWrap.classList.remove('show');acctWrap.classList.add('show')});
+  closeCo.addEventListener('click',()=>coWrap.classList.remove('show'));
+  confirmBtn.addEventListener('click',()=>{
+    coWrap.classList.remove('show'); loading.classList.add('show'); let p=0,i=0;
     const t=setInterval(()=>{
       p+=Math.random()*15+5; fill.style.width=Math.min(p,100)+'%';
       status.textContent=msgs[Math.min(i++,msgs.length-1)];
