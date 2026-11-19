@@ -302,7 +302,7 @@
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   async function playGift(){
     procView.style.display='block'; okView.style.display='none'; fx.classList.add('show');
-    await sleep(3200);
+    await sleep(1800);
     result.textContent=`${ed.e} is on its way to ${name} on ${plat}.`;
     rcTo.textContent=name; rcEd.textContent=ed.e; rcPl.textContent=plat;
     rcDt.textContent=new Date().toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
