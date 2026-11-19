@@ -3,137 +3,146 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DEMO – Vice City Gift Shop (Not Real)</title>
+<title>Welcome back to Vice City (Demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{--pink:#ff3d8b;--orange:#ff9a3c;--teal:#22d3ee;--bg:#12081f;--card:#1e1033;--text:#fff}
+  :root{--pink:#ff7eb6;--gold:#ffc24b;--ink:#0c0a12;--line:rgba(255,255,255,.14)}
   *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);
-    background:linear-gradient(180deg,#2a0b4a 0%,#7a1f6e 35%,#ff6a5c 70%,#ffb347 100%) fixed;min-height:100vh}
-  /* repeating DEMO watermark */
-  body::before{content:"DEMO • DEMO • DEMO • DEMO • DEMO • DEMO • DEMO • DEMO";position:fixed;inset:-50%;
-    font:900 64px/120px system-ui;color:rgba(255,255,255,.06);transform:rotate(-20deg);
-    word-spacing:40px;pointer-events:none;z-index:0;overflow:hidden;white-space:normal;text-align:center}
-  .banner{position:sticky;top:0;z-index:10;background:#ffd400;color:#000;text-align:center;font-weight:800;
-    padding:8px 12px;letter-spacing:.5px;font-size:14px}
-  main{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:24px 16px 60px}
-  header{text-align:center;padding:36px 0 12px}
-  .tag{display:inline-block;border:2px solid #ffd400;color:#ffd400;padding:2px 10px;border-radius:6px;
-    font-weight:800;font-size:12px;letter-spacing:2px}
-  h1{font-size:clamp(40px,10vw,86px);margin:14px 0 4px;line-height:.95;font-weight:900;letter-spacing:-1px;
-    background:linear-gradient(90deg,var(--teal),var(--pink),var(--orange));-webkit-background-clip:text;
-    background-clip:text;color:transparent;text-shadow:0 0 40px rgba(255,61,139,.3)}
-  .sub{opacity:.9;font-size:18px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:28px 0}
-  .card{background:rgba(30,16,51,.85);border:2px solid transparent;border-radius:16px;padding:20px;cursor:pointer;
-    transition:.15s;text-align:left;color:inherit;font:inherit;position:relative}
-  .card:hover{transform:translateY(-3px)}
-  .card.sel{border-color:var(--teal);box-shadow:0 0 24px rgba(34,211,238,.35)}
-  .card h3{margin:0 0 6px;font-size:20px}
-  .price{font-size:26px;font-weight:900;color:var(--orange)}
-  .card small{display:block;opacity:.75;margin-top:6px}
-  .pill{position:absolute;top:12px;right:12px;background:var(--pink);font-size:11px;font-weight:800;padding:3px 8px;border-radius:99px}
-  .panel{background:rgba(30,16,51,.85);border-radius:16px;padding:20px;margin-bottom:16px}
-  label{display:block;font-weight:700;margin-bottom:6px}
-  input,textarea{width:100%;padding:12px;border-radius:10px;border:2px solid #4b2d78;background:#12081f;color:#fff;font:inherit}
-  textarea{min-height:80px;resize:vertical}
-  .btn{width:100%;padding:16px;border:0;border-radius:12px;font-size:18px;font-weight:900;color:#fff;cursor:pointer;
-    background:linear-gradient(90deg,var(--pink),var(--orange))}
-  .btn:disabled{opacity:.5;cursor:not-allowed}
-  .note{font-size:12px;opacity:.75;text-align:center;margin-top:10px}
-  .overlay{position:fixed;inset:0;z-index:20;background:rgba(10,4,20,.92);display:none;align-items:center;
-    justify-content:center;text-align:center;padding:24px}
+  html,body{margin:0}
+  body{font-family:Inter,system-ui,sans-serif;color:#fff;background:var(--ink);min-height:100vh}
+  .demo{background:#ffd400;color:#000;text-align:center;font-weight:700;font-size:13px;padding:7px 12px;letter-spacing:.4px}
+
+  .hero{position:relative;min-height:calc(100vh - 31px);display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;padding:48px 16px;overflow:hidden;
+    background:
+      radial-gradient(ellipse 40% 60% at 70% 45%,rgba(255,150,110,.55),transparent 70%),
+      radial-gradient(ellipse 35% 55% at 25% 40%,rgba(255,120,60,.35),transparent 70%),
+      linear-gradient(180deg,#2b1a3d 0%,#4a2a4e 45%,#2a1930 100%)}
+  /* soft silhouettes to echo the key art */
+  .hero::before,.hero::after{content:"";position:absolute;bottom:-5%;border-radius:50% 50% 0 0;filter:blur(2px);opacity:.55}
+  .hero::before{right:6%;width:30%;height:75%;background:linear-gradient(180deg,#6b3a5c,#2a1428)}
+  .hero::after{right:-4%;width:20%;height:65%;background:linear-gradient(180deg,#8a5a62,#2a1428)}
+  .hero>*{position:relative;z-index:1}
+  .hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,10,18,.35),rgba(12,10,18,.7));z-index:0}
+
+  .pills{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:26px}
+  .pill{border:1px solid var(--line);background:rgba(12,10,18,.6);backdrop-filter:blur(6px);border-radius:999px;
+    padding:8px 18px;font-size:13px;font-weight:500;display:inline-flex;gap:8px;align-items:center}
+  .pill b{color:var(--gold);font-weight:600}
+  .dot{width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px #3ddc84}
+
+  h1{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:clamp(40px,8vw,84px);
+    line-height:1.05;margin:0 0 16px;letter-spacing:-.5px}
+  h1 .g{background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{max-width:560px;margin:0 auto 26px;color:rgba(255,255,255,.78);font-size:16px;line-height:1.5}
+
+  .count{display:flex;gap:12px;justify-content:center;margin-bottom:30px}
+  .box{width:84px;padding:14px 0 10px;border:1px solid var(--line);border-radius:10px;background:rgba(12,10,18,.6);backdrop-filter:blur(6px)}
+  .box .n{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:38px;line-height:1}
+  .box .l{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.55);margin-top:6px}
+
+  .choose{font-weight:600;font-size:15px;margin-bottom:14px}
+  .plats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+  .plat{width:250px;display:flex;align-items:center;gap:14px;padding:16px 18px;text-align:left;cursor:pointer;color:#fff;
+    background:rgba(12,10,18,.7);border:1px solid var(--line);border-radius:10px;font:inherit;transition:.15s}
+  .plat:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .plat svg{width:26px;height:26px;flex:none}
+  .plat .t{font-weight:600;font-size:16px}
+  .plat .s{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-top:2px}
+
+  .stats{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.75);margin-bottom:14px}
+  .stats b{color:#fff}
+  .offer{font-size:13px;color:rgba(255,255,255,.75)}
+  .offer b{color:var(--gold)}
+
+  .overlay{position:fixed;inset:0;z-index:20;background:rgba(10,6,18,.94);display:none;align-items:center;justify-content:center;text-align:center;padding:24px}
   .overlay.show{display:flex}
-  .box{max-width:460px}
-  .bar{height:12px;background:#3a2260;border-radius:99px;overflow:hidden;margin:18px 0}
-  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--pink));transition:width .2s}
-  .big{font-size:clamp(34px,9vw,60px);font-weight:900;color:#ffd400;margin:0 0 8px}
-  .link{background:none;border:0;color:var(--teal);text-decoration:underline;cursor:pointer;font:inherit;margin-top:14px}
-  footer{text-align:center;font-size:12px;opacity:.8;margin-top:30px}
+  .modal{max-width:440px}
+  .bar{height:10px;background:#3a2a52;border-radius:99px;overflow:hidden;margin:18px 0}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--gold));transition:width .25s}
+  .big{font-family:"Barlow Condensed",sans-serif;font-size:clamp(44px,12vw,72px);font-weight:800;color:var(--gold);margin:0 0 6px}
+  .link{background:none;border:0;color:var(--pink);text-decoration:underline;cursor:pointer;font:inherit;margin-top:14px}
+  @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
 </head>
 <body>
-<div class="banner">⚠️ DEMO ONLY — FAKE PAGE, NOT A REAL STORE, NOTHING IS SOLD OR SENT ⚠️</div>
+<div class="demo">DEMO — fake prank page, not a real store</div>
 
-<main>
-  <header>
-    <span class="tag">DEMO • NOT REAL</span>
-    <h1>VICE CITY<br>GIFT SHOP</h1>
-    <p class="sub">Gift the big game to a friend — <b>(DEMO prank page)</b></p>
-  </header>
+<section class="hero">
+  <div class="shade"></div>
+  <div class="pills">
+    <span class="pill"><span class="dot"></span>Releases <b id="rel">November 19, 2026</b></span>
+    <span class="pill">M · MATURE 17+</span>
+  </div>
 
-  <div class="grid" id="editions">
-    <button class="card" data-name="Standard Edition (DEMO)" data-price="£69.99">
-      <h3>Standard Edition</h3><div class="price">£69.99</div><small>Base game · DEMO listing</small>
+  <h1>Welcome back to <span class="g">Vice City.</span></h1>
+  <p class="lead">The biggest, most immersive evolution of the series yet.<br>Reserve your copy — first wave ships day one.</p>
+
+  <div class="count" id="count">
+    <div class="box"><div class="n" id="d">63</div><div class="l">DAYS</div></div>
+    <div class="box"><div class="n" id="h">09</div><div class="l">HOURS</div></div>
+    <div class="box"><div class="n" id="m">22</div><div class="l">MIN</div></div>
+    <div class="box"><div class="n" id="s">25</div><div class="l">SEC</div></div>
+  </div>
+
+  <div class="choose">Choose your platform to pre-order</div>
+  <div class="plats">
+    <button class="plat" data-p="PlayStation 5">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M9 3v16l3 1V6c0-.7.3-1 .8-.8 1 .3 1.2 1.2 1.2 2.4v5.5c2 1 3.600 0 3.600-2.800 0-2.900-1-4.200-3.800-5.100C11.600 4.500 10 3.900 9 3zm-5 13.500l5-1.800v-1.700l-5 1.800zm10.500-1l5-1.800c.8-.3 1-.9 0-1.200-.6-.2-1.600-.2-2.200 0l-2.800 1v1.700z"/></svg>
+      <div><div class="t">PlayStation 5</div><div class="s">PRE-ORDER ›</div></div>
     </button>
-    <button class="card" data-name="Deluxe Edition (DEMO)" data-price="£89.99">
-      <span class="pill">POPULAR</span>
-      <h3>Deluxe Edition</h3><div class="price">£89.99</div><small>Bonus cars &amp; outfits · DEMO listing</small>
-    </button>
-    <button class="card" data-name="Ultimate Edition (DEMO)" data-price="£119.99">
-      <h3>Ultimate Edition</h3><div class="price">£119.99</div><small>Everything · DEMO listing</small>
+    <button class="plat" data-p="Xbox Series X|S">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9.500"/><path d="M7 7l10 10M17 7L7 17"/></svg>
+      <div><div class="t">Xbox Series X|S</div><div class="s">PRE-ORDER ›</div></div>
     </button>
   </div>
 
-  <div class="panel">
-    <label for="friend">Friend's nickname (stays in your browser — nothing is sent anywhere)</label>
-    <input id="friend" placeholder="e.g. Big Dave" maxlength="30">
-    <br><br>
-    <label for="msg">Gift message</label>
-    <textarea id="msg" maxlength="140" placeholder="Happy birthday! (DEMO)"></textarea>
+  <div class="stats">
+    <span><span class="dot"></span>&nbsp; <b id="po">20,002,573</b> pre-orders in the last 24h</span>
   </div>
-
-  <button class="btn" id="send" disabled>SEND GIFT (DEMO)</button>
-  <p class="note">No payment details are requested. This is a joke page with no real checkout.</p>
-
-  <footer>DEMO • Fan-made prank • Not affiliated with any game publisher or store • Nothing here is real</footer>
-</main>
+  <div class="offer">Order today to get the <b>Vintage Vice City Pack</b> at no additional cost</div>
+</section>
 
 <div class="overlay" id="loading">
-  <div class="box">
-    <h2>Processing your gift… (DEMO)</h2>
-    <div class="bar"><i id="fill"></i></div>
-    <p id="status">Contacting fake servers…</p>
-  </div>
+  <div class="modal"><h2>Reserving your copy…</h2><div class="bar"><i id="fill"></i></div><p id="status">Connecting…</p></div>
 </div>
 
 <div class="overlay" id="reveal">
-  <div class="box">
+  <div class="modal">
     <p class="big">GOTCHA! 😂</p>
-    <h2>This was a DEMO prank page</h2>
+    <h2>This was a demo prank page</h2>
     <p id="result"></p>
-    <p>No game was sent, nothing was charged, and no data left your device.</p>
-    <button class="link" id="again">Go back</button>
+    <p>Nothing was ordered, nothing was charged, and no data left your device.</p>
+    <button class="link" id="back">Go back</button>
   </div>
 </div>
 
 <script>
-  let chosen=null;
-  const cards=document.querySelectorAll('.card'), send=document.getElementById('send');
-  cards.forEach(c=>c.addEventListener('click',()=>{
-    cards.forEach(x=>x.classList.remove('sel')); c.classList.add('sel');
-    chosen={name:c.dataset.name,price:c.dataset.price}; send.disabled=false;
-  }));
+  // countdown (cosmetic only)
+  const end=Date.now()+((63*24+9)*3600+22*60+25)*1000;
+  const pad=n=>String(n).padStart(2,'0');
+  function tick(){
+    let t=Math.max(0,Math.floor((end-Date.now())/1000));
+    d.textContent=Math.floor(t/86400); h.textContent=pad(Math.floor(t%86400/3600));
+    m.textContent=pad(Math.floor(t%3600/60)); s.textContent=pad(t%60);
+  }
+  tick(); setInterval(tick,1000);
+  // fake live counter
+  let n=20002573; setInterval(()=>{n+=Math.floor(Math.random()*5)+1;po.textContent=n.toLocaleString('en-US')},1500);
 
-  const steps=["Contacting fake servers…","Checking friend's (imaginary) account…","Wrapping the gift (DEMO)…","Almost there…"];
-  send.addEventListener('click',()=>{
-    const load=document.getElementById('loading'), fill=document.getElementById('fill'), st=document.getElementById('status');
-    load.classList.add('show'); let p=0,i=0;
+  const msgs=["Connecting…","Checking availability…","Reserving your copy…","Applying Vintage Vice City Pack…"];
+  document.querySelectorAll('.plat').forEach(b=>b.addEventListener('click',()=>{
+    loading.classList.add('show'); let p=0,i=0;
     const t=setInterval(()=>{
-      p+=Math.random()*14+4; fill.style.width=Math.min(p,100)+'%';
-      st.textContent=steps[Math.min(i++%steps.length,steps.length-1)];
-      if(p>=100){
-        clearInterval(t); load.classList.remove('show');
-        const f=document.getElementById('friend').value.trim()||'your friend';
-        document.getElementById('result').textContent=
-          `"${chosen.name}" for ${f} was never really gifted. (${chosen.price} — fake price, DEMO.)`;
-        document.getElementById('reveal').classList.add('show');
-      }
+      p+=Math.random()*15+5; fill.style.width=Math.min(p,100)+'%';
+      status.textContent=msgs[Math.min(i++,msgs.length-1)];
+      if(p>=100){clearInterval(t);loading.classList.remove('show');
+        result.textContent=`Your ${b.dataset.p} pre-order never existed. 😉`;
+        reveal.classList.add('show');}
     },350);
-  });
-  document.getElementById('again').addEventListener('click',()=>{
-    document.getElementById('reveal').classList.remove('show');
-    document.getElementById('fill').style.width='0';
-  });
+  }));
+  back.addEventListener('click',()=>{reveal.classList.remove('show');fill.style.width='0'});
 </script>
 </body>
 </html>
