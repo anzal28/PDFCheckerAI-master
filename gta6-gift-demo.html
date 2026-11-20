@@ -220,7 +220,7 @@
 
 <div class="overlay" id="acctWrap">
   <div class="store acct">
-    <div class="top"><span>LINK ACCOUNT</span><button class="x" id="closeAcct" aria-label="Close">✕</button></div>
+    <div class="top"><span id="acctHead">LINK ACCOUNT</span><button class="x" id="closeAcct" aria-label="Close">✕</button></div>
     <div class="body">
       <button class="back" id="backEd">← Back to editions</button>
       <h3 id="acctTitle">Enter your Gamertag</h3>
@@ -302,6 +302,7 @@
   document.querySelectorAll('.ed').forEach(e=>e.addEventListener('click',()=>{
     ed=e.dataset; storeWrap.classList.remove('show');
     const l=idLabel[plat]||'username';
+    acctHead.textContent=plat.toUpperCase();
     acctTitle.textContent=`Enter your friend's ${l}`;
     acctSub.textContent=`We'll attach ${ed.e} to this profile straight away.`;
     tag.value=''; found.classList.remove('show'); acctWrap.classList.add('show'); tag.focus();
