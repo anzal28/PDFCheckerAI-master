@@ -315,6 +315,31 @@
   .ut1.b{background-image:var(--cover);background-size:210% auto}
   .ut1:hover{transform:scale(1.02)}
   @media(max-width:700px){.ulinks{display:none}.ucard{width:100%}.ubtn{width:100%}.ut1{width:80vw;height:200px}.uhero{min-height:0}.usub{font-size:16px}}
+  /* professional sending animation */
+  .ring{position:relative;width:132px;height:132px;margin-bottom:6px}
+  .rsvg{width:100%;height:100%}
+  .rbg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:5}
+  .rfg{fill:none;stroke:url(#rg);stroke-width:5;stroke-linecap:round;stroke-dasharray:327;stroke-dashoffset:327;transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1),stroke .3s}
+  .rck{fill:none;stroke:#3ddc84;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset .5s .15s ease-out}
+  .rlogo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .25s,transform .25s}
+  .ring.spin .rsvg{animation:rsp 2.2s linear infinite}
+  @keyframes rsp{to{transform:rotate(270deg)}}
+  .ring.ok .rsvg{animation:none}
+  .ring.ok .rfg{stroke:#3ddc84}
+  .ring.ok .rck{stroke-dashoffset:0}
+  .ring.ok .rlogo{opacity:0;transform:scale(.6)}
+  .ring.ok{animation:okpop .5s cubic-bezier(.34,1.7,.64,1)}
+  @keyframes okpop{0%{transform:scale(.9)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
+  .steps{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:12px;text-align:left;font-size:14px}
+  .steps li{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.35);transition:color .25s}
+  .steps li i{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.25);flex:none;position:relative;transition:.25s}
+  .steps li.act{color:#fff}
+  .steps li.act i{border-color:rgba(255,255,255,.2);border-top-color:#8a4fff;animation:rsp2 .7s linear infinite}
+  @keyframes rsp2{to{transform:rotate(360deg)}}
+  .steps li.done{color:rgba(255,255,255,.9)}
+  .steps li.done i{background:#3ddc84;border-color:#3ddc84}
+  .steps li.done i::after{content:"";position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid #0b1a10;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  #sHead{transition:opacity .2s}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -388,9 +413,22 @@
   <div class="sdlg tall">
     <button class="sx" id="closeSending" aria-label="Close">✕</button>
     <div class="scenter">
-      <svg viewBox="0 0 32 32" width="64" height="64" class="slogo" aria-hidden="true"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg2)"/><path d="M8 9l8 15 8-15" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8.500" r="2.200" fill="#ffd86b"/></svg>
-      <h2>Sending gift</h2>
-      <p>Preparing your gift for <b id="sName"></b>…</p>
+      <div class="ring" id="ring">
+        <svg class="rsvg" viewBox="0 0 120 120">
+          <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+          <g transform="rotate(-90 60 60)"><circle class="rbg" cx="60" cy="60" r="52"/>
+          <circle class="rfg" id="rfg" cx="60" cy="60" r="52"/></g>
+          <path class="rck" id="rck" d="M38 62l16 16 30-34"/>
+        </svg>
+        <div class="rlogo"><svg viewBox="0 0 32 32" width="52" height="52" class="slogo2" aria-hidden="true"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg2)"/><path d="M8 9l8 15 8-15" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8.500" r="2.200" fill="#ffd86b"/></svg></div>
+      </div>
+      <h2 id="sHead">Sending gift</h2>
+      <p id="sSub">Preparing your gift for <b id="sName"></b>…</p>
+      <ul class="steps">
+        <li id="st1"><i></i>Verifying recipient</li>
+        <li id="st2"><i></i>Preparing digital code</li>
+        <li id="st3"><i></i>Securing delivery</li>
+      </ul>
     </div>
   </div>
 </div>
@@ -447,9 +485,27 @@
   closeSending.addEventListener('click',()=>{cancelled=true;sending.classList.remove('show')});
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   async function playGift(){
-    cancelled=false; sName.textContent=name; sending.classList.add('show');
-    await sleep(2400);
-    if(cancelled) return;
+    cancelled=false;
+    ring.classList.remove('ok'); ring.classList.add('spin');
+    rfg.style.transition='none'; rfg.style.strokeDashoffset=327; void rfg.getBoundingClientRect(); rfg.style.transition='';
+    const sts=[st1,st2,st3]; sts.forEach(x=>x.className='');
+    sHead.textContent='Sending gift';
+    sSub.innerHTML='Preparing your gift for <b>'+name.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+'</b>…';
+    sending.classList.add('show');
+    await sleep(350); if(cancelled)return;
+    for(let i=0;i<sts.length;i++){
+      sts[i].className='act';
+      rfg.style.strokeDashoffset=327*(1-(i+1)/(sts.length+1));
+      await sleep(900); if(cancelled)return;
+      sts[i].className='done';
+    }
+    sSub.textContent='Sending to '+plat+'…';
+    rfg.style.strokeDashoffset=0;
+    await sleep(900); if(cancelled)return;
+    ring.classList.remove('spin'); ring.classList.add('ok');
+    sHead.textContent='Gift sent';
+    sSub.textContent='Delivered to '+name;
+    await sleep(1100); if(cancelled)return;
     sending.classList.remove('show');
     result.textContent=`${ed.e} is on its way to ${name} on ${plat}.`;
     rcTo.textContent=name; rcFrom.textContent=sender; rcEd.textContent=ed.e; rcPl.innerHTML=platIcon(plat)+plat;
