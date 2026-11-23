@@ -234,6 +234,30 @@
   @media(max-width:900px){.links,.vbar,.brand.sub{display:none}.pbanner{height:auto;gap:28px;padding:32px 20px}.pgrid{grid-template-columns:1fr}
     .pstrip,.ptabs{padding-left:20px;padding-right:20px}.buyrow{flex-wrap:wrap;height:auto}.buy,.sq{height:64px}.ddwrap{width:100%}.dd{width:100%}
     .pcover{width:130px;height:196px}.ptitle{font-size:28px}.pmeta{font-size:15px}}
+  /* send gift dialogs */
+  .sdlg{position:relative;width:min(607px,100%);background:linear-gradient(160deg,#2b282f,#1f1e22);border-radius:10px;padding:56px 60px 40px;text-align:left;box-shadow:0 30px 80px rgba(0,0,0,.6);max-height:94vh;overflow:auto}
+  .sdlg.tall{min-height:min(640px,90vh)}
+  .sx{position:absolute;top:14px;right:16px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;z-index:2}
+  .sx:hover{background:rgba(255,255,255,.24)}
+  .sdlg h2{margin:0 0 22px;font-size:24px;font-weight:600}
+  .shead{display:flex;gap:14px;align-items:flex-start;margin-bottom:30px}
+  .scover{width:100px;height:150px;flex:none;border-radius:4px;border:1px solid #ff7a5c;background:#1a0f2e var(--cover) 50% 35%/cover no-repeat}
+  .stitle{font-family:"Barlow Condensed",Inter,sans-serif;font-weight:700;font-size:26px;line-height:1.25;letter-spacing:.3px}
+  .sprice{font-family:"Barlow Condensed",Inter,sans-serif;font-weight:600;font-size:19px;margin-top:8px}
+  .sdlg label{display:block;font-size:14px;margin:0 0 8px}
+  .sdlg input{width:100%;padding:11px 14px;border-radius:4px;border:1px solid #55535a;background:#171618;color:#fff;font:inherit;font-size:14px;margin-bottom:26px}
+  .sdlg input:focus{outline:none;border-color:#a3a1ab;box-shadow:0 2px 0 #3ddc84}
+  .sfine{font-size:11px;line-height:1.55;margin:30px 0 20px;color:rgba(255,255,255,.88)}
+  .sfine a{color:#6fdc8c;font-weight:700;text-decoration:underline;cursor:default}
+  .snext{width:100%;padding:14px;border:0;border-radius:4px;background:#0f8a43;color:#fff;font-weight:700;font-size:13px;letter-spacing:.6px;cursor:pointer;transition:filter .15s,transform .15s cubic-bezier(.34,1.8,.64,1)}
+  .snext:hover{filter:brightness(1.12)}.snext:active{transform:scale(.97)}
+  .sdemo{font-size:11px;color:rgba(255,255,255,.45);margin-top:14px;text-align:center}
+  .scenter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .scenter h2{margin:26px 0 22px;font-weight:400;font-size:24px}
+  .scenter p{margin:0;font-size:14px}
+  .slogo{animation:pulse 1.1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  .overlay.show .sdlg{animation:bounceIn .3s cubic-bezier(.34,1.56,.64,1)}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -350,73 +374,48 @@
   </div>
 </div>
 
-<div class="overlay" id="acctWrap">
-  <div class="store acct">
-    <div class="top"><span id="acctHead">LINK ACCOUNT</span><button class="x" id="closeAcct" aria-label="Close">✕</button></div>
-    <div class="body">
-      <button class="back" id="backEd">← Back to editions</button>
-      <h3 id="acctTitle">Enter your Gamertag</h3>
-      <p id="acctSub">Who are you gifting this to?</p>
-      <div class="find">
-        <input id="tag" placeholder="e.g. ViceCityKid" maxlength="24" autocomplete="off">
-        <button class="gbtn" id="findBtn">Find</button>
-      </div>
-      <div class="found" id="found">
-        <div class="av" id="av">?</div>
-        <div class="who"><b id="foundName"></b><span id="foundSub">Profile found</span></div>
-        <button class="gbtn" id="giftBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8M12 8v13"/><path d="M12 8c-1.5-4-6-4-6-1.500C6 8 8 8 12 8zm0 0c1.500-4 6-4 6-1.500C18 8 16 8 12 8z"/></svg><span>Gift</span></button>
-      </div>
-      <div class="fine">Demo page · the name stays in this page and is not sent to any service.</div>
+<div class="overlay" id="sendWrap">
+  <div class="sdlg">
+    <button class="sx" id="closeSend" aria-label="Close">✕</button>
+    <h2>Send gift</h2>
+    <div class="shead">
+      <div class="scover"></div>
+      <div><div class="stitle" id="sTitle"></div><div class="sprice" id="sPrice"></div></div>
     </div>
+    <label for="sTo" id="sToLbl"></label>
+    <input id="sTo" maxlength="30" autocomplete="off">
+    <label for="sFrom">Enter your sender name (required)</label>
+    <input id="sFrom" maxlength="30" autocomplete="off">
+    <p class="sfine">Your gift will be sent as a digital code. Recipient must meet any age rating requirements. Learn more about <a>Gift terms and conditions</a> and <a>Terms of sale</a>.</p>
+    <button class="snext" id="sNext">NEXT</button>
+    <div class="sdemo">Demo page · names stay on this page and aren't sent anywhere.</div>
   </div>
 </div>
 
-<div class="overlay" id="coWrap">
-  <div class="store co">
-    <div class="top"><span>CHECKOUT</span><button class="x" id="closeCo" aria-label="Close">✕</button></div>
-    <div class="body">
-      <button class="back" id="coBack" style="background:none;border:0;color:rgba(255,255,255,.7);font:inherit;font-size:12px;cursor:pointer;padding:0;margin-bottom:18px">← Back</button>
-      <div class="coHead">
-        <div class="art a1 mini"></div>
-        <div>
-          <div class="eyebrow">DIGITAL GIFT</div>
-          <h3 id="coName" style="margin:4px 0">Standard Edition</h3>
-          <div class="eyebrow">Delivers to <b id="coTo" style="color:#fff"></b></div>
-          <div class="eyebrow" id="coPlat" style="margin-top:6px"></div>
-        </div>
-      </div>
-      <div class="sum">
-        <div><span id="coLine"></span><b id="coLinePr"></b></div>
-        <div class="dim"><span>VAT (included)</span><span id="coVat"></span></div>
-        <div class="tot"><span>Total</span><b id="coTotal"></b></div>
-      </div>
-      <div class="eyebrow" style="margin:20px 0 8px">PAYMENT METHOD</div>
-      <div class="pay">Demo payment · no card needed, nothing is charged</div>
-      <button class="cbtn" id="confirmBtn">Confirm gift</button>
-      <div class="fine">Demo page · this is not a real checkout.</div>
+<div class="overlay" id="sending">
+  <div class="sdlg tall">
+    <button class="sx" id="closeSending" aria-label="Close">✕</button>
+    <div class="scenter">
+      <svg viewBox="0 0 32 32" width="64" height="64" class="slogo" aria-hidden="true"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg2)"/><path d="M8 9l8 15 8-15" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8.500" r="2.200" fill="#ffd86b"/></svg>
+      <h2>Sending gift</h2>
+      <p>Preparing your gift for <b id="sName"></b>…</p>
     </div>
   </div>
 </div>
 
 <div class="overlay" id="fx">
   <div class="pcard">
-    <div id="procView">
-      <div class="spin"></div>
-      <h2>Processing gift…</h2>
-      <div class="sm">Do not close this window</div>
+    <div class="ok">✓</div>
+    <h2 style="font-size:24px;margin-bottom:10px">Gift confirmed</h2>
+    <p id="result"></p>
+    <div class="rcpt">
+      <div><span>Gift for</span><b id="rcTo"></b></div>
+      <div><span>From</span><b id="rcFrom"></b></div>
+      <div><span>Edition</span><b id="rcEd"></b></div>
+      <div><span>Platform</span><b id="rcPl"></b></div>
+      <div><span>Date</span><b id="rcDt"></b></div>
     </div>
-    <div id="okView" style="display:none">
-      <div class="ok">✓</div>
-      <h2 style="font-size:24px;margin-bottom:10px">Gift confirmed</h2>
-      <p id="result"></p>
-      <div class="rcpt">
-        <div><span>Gift for</span><b id="rcTo"></b></div>
-        <div><span>Edition</span><b id="rcEd"></b></div>
-        <div><span>Platform</span><b id="rcPl"></b></div>
-        <div><span>Date</span><b id="rcDt"></b></div>
-      </div>
-      <button class="gbtn" id="back" style="width:100%;padding:16px;font-size:16px;background:#1d4ed8;border-radius:8px">Done</button>
-    </div>
+    <button class="gbtn" id="back" style="width:100%;padding:16px;font-size:16px;background:#1d4ed8;border-radius:8px">Done</button>
   </div>
 </div>
 
@@ -443,51 +442,36 @@
   document.querySelectorAll('#ddmenu .opt').forEach(o=>o.addEventListener('click',()=>{selPlat=o.dataset.p;ddval.textContent=selPlat;ddmenu.classList.remove('open')}));
   document.addEventListener('click',()=>{ddmenu.classList.remove('open');moremenu.classList.remove('open')});
   closeStore.addEventListener('click',()=>storeWrap.classList.remove('show'));
-  let ed=null;
-  const idLabel={'PlayStation 5':'PSN ID','Xbox Series X|S':'Gamertag'};
+  let ed=null,name='',sender='',cancelled=false;
+  const idLabel={'PlayStation 5':'PlayStation ID','Xbox Series X|S':'Xbox username'};
+  const idHint={'PlayStation 5':'Enter a PlayStation ID','Xbox Series X|S':'Enter an Xbox username'};
   document.querySelectorAll('.ed').forEach(e=>e.addEventListener('click',()=>{
     ed=e.dataset; storeWrap.classList.remove('show');
-    const l=idLabel[plat]||'username';
-    acctHead.innerHTML=platLabel(plat);
-    acctTitle.textContent=`Enter your friend's ${l}`;
-    acctSub.textContent=`We'll attach ${ed.e} to this profile straight away.`;
-    tag.value=''; found.classList.remove('show'); acctWrap.classList.add('show'); tag.focus();
+    sTitle.textContent='Grand Theft Auto VI: '+ed.e;
+    sPrice.textContent='Gift price: '+ed.pr+' including tax';
+    sToLbl.textContent=`Sending gift to (${idLabel[plat]||'username'}, required)`;
+    sTo.placeholder=idHint[plat]||'Enter a username';
+    sTo.value=''; sFrom.value=''; sendWrap.classList.add('show'); sTo.focus();
   }));
-  closeAcct.addEventListener('click',()=>acctWrap.classList.remove('show'));
-  backEd.addEventListener('click',()=>{acctWrap.classList.remove('show');storeWrap.classList.add('show')});
-  function doFind(){
-    const v=tag.value.trim(); if(!v){tag.focus();return}
-    findBtn.disabled=true; findBtn.textContent='…';
-    setTimeout(()=>{
-      findBtn.disabled=false; findBtn.textContent='Find';
-      foundName.textContent=v; av.textContent=v[0].toUpperCase(); found.classList.add('show');
-    },700);
+  closeSend.addEventListener('click',()=>sendWrap.classList.remove('show'));
+  function goNext(){
+    const to=sTo.value.trim(), from=sFrom.value.trim();
+    if(!to){sTo.focus();return} if(!from){sFrom.focus();return}
+    name=to; sender=from; sendWrap.classList.remove('show'); playGift();
   }
-  findBtn.addEventListener('click',doFind);
-  tag.addEventListener('keydown',e=>{if(e.key==='Enter')doFind()});
-  tag.addEventListener('input',()=>found.classList.remove('show'));
-  let name='';
-  giftBtn.addEventListener('click',()=>{
-    name=foundName.textContent;
-    const price=parseFloat(ed.pr.replace('£',''));
-    coName.textContent=ed.e; coPlat.innerHTML=platLabel(plat); coTo.textContent=name;
-    coLine.textContent=ed.e; coLinePr.textContent=ed.pr;
-    coVat.textContent='£'+(price/6).toFixed(2); coTotal.textContent=ed.pr; confirmBtn.textContent='Confirm gift · '+ed.pr;
-    acctWrap.classList.remove('show'); coWrap.classList.add('show');
-  });
-  coBack.addEventListener('click',()=>{coWrap.classList.remove('show');acctWrap.classList.add('show')});
-  closeCo.addEventListener('click',()=>coWrap.classList.remove('show'));
-  confirmBtn.addEventListener('click',()=>{
-    coWrap.classList.remove('show'); playGift();
-  });
+  sNext.addEventListener('click',goNext);
+  [sTo,sFrom].forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')goNext()}));
+  closeSending.addEventListener('click',()=>{cancelled=true;sending.classList.remove('show')});
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   async function playGift(){
-    procView.style.display='block'; okView.style.display='none'; fx.classList.add('show');
-    await sleep(1800);
+    cancelled=false; sName.textContent=name; sending.classList.add('show');
+    await sleep(2400);
+    if(cancelled) return;
+    sending.classList.remove('show');
     result.textContent=`${ed.e} is on its way to ${name} on ${plat}.`;
-    rcTo.textContent=name; rcEd.textContent=ed.e; rcPl.innerHTML=platIcon(plat)+plat;
+    rcTo.textContent=name; rcFrom.textContent=sender; rcEd.textContent=ed.e; rcPl.innerHTML=platIcon(plat)+plat;
     rcDt.textContent=new Date().toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
-    procView.style.display='none'; okView.style.display='block';
+    fx.classList.add('show');
   }
   back.addEventListener('click',()=>{fx.classList.remove('show')});
 </script>
