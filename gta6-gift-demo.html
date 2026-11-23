@@ -244,6 +244,11 @@
   .scover{width:100px;height:150px;flex:none;border-radius:4px;border:1px solid #ff7a5c;background:#1a0f2e var(--cover) 50% 35%/cover no-repeat}
   .stitle{font-family:"Barlow Condensed",Inter,sans-serif;font-weight:700;font-size:26px;line-height:1.25;letter-spacing:.3px}
   .sprice{font-family:"Barlow Condensed",Inter,sans-serif;font-weight:600;font-size:19px;margin-top:8px}
+  .sseg{display:flex;gap:12px;margin-bottom:24px}
+  .sopt{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 14px;border-radius:4px;border:1px solid #55535a;background:#171618;color:#fff;font:inherit;font-size:14px;cursor:pointer;transition:transform .15s cubic-bezier(.34,1.8,.64,1),border-color .15s}
+  .sopt:hover{border-color:#a3a1ab}.sopt:active{transform:scale(.96)}
+  .sopt.on{border-color:#3ddc84;box-shadow:0 2px 0 #3ddc84;background:#1b2a20}
+  .sopt img{width:20px;height:20px;object-fit:contain}
   .sdlg label{display:block;font-size:14px;margin:0 0 8px}
   .sdlg input{width:100%;padding:11px 14px;border-radius:4px;border:1px solid #55535a;background:#171618;color:#fff;font:inherit;font-size:14px;margin-bottom:26px}
   .sdlg input:focus{outline:none;border-color:#a3a1ab;box-shadow:0 2px 0 #3ddc84}
@@ -382,6 +387,11 @@
       <div class="scover"></div>
       <div><div class="stitle" id="sTitle"></div><div class="sprice" id="sPrice"></div></div>
     </div>
+    <label>Choose platform (required)</label>
+    <div class="sseg" id="sSeg">
+      <button type="button" class="sopt" data-p="PlayStation 5"><img id="sIcoPs" alt=""><span>PlayStation</span></button>
+      <button type="button" class="sopt" data-p="Xbox Series X|S"><img id="sIcoXb" alt=""><span>Xbox</span></button>
+    </div>
     <label for="sTo" id="sToLbl"></label>
     <input id="sTo" maxlength="30" autocomplete="off">
     <label for="sFrom">Enter your sender name (required)</label>
@@ -449,10 +459,17 @@
     ed=e.dataset; storeWrap.classList.remove('show');
     sTitle.textContent='Grand Theft Auto VI: '+ed.e;
     sPrice.textContent='Gift price: '+ed.pr+' including tax';
-    sToLbl.textContent=`Sending gift to (${idLabel[plat]||'username'}, required)`;
-    sTo.placeholder=idHint[plat]||'Enter a username';
+    setSendPlat(plat);
     sTo.value=''; sFrom.value=''; sendWrap.classList.add('show'); sTo.focus();
   }));
+  sIcoPs.src=psImg.src; sIcoXb.src=xbImg.src;
+  function setSendPlat(p){
+    plat=p;
+    document.querySelectorAll('.sopt').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+    sToLbl.textContent=`Sending gift to (${idLabel[p]||'username'}, required)`;
+    sTo.placeholder=idHint[p]||'Enter a username';
+  }
+  document.querySelectorAll('.sopt').forEach(b=>b.addEventListener('click',()=>{setSendPlat(b.dataset.p);sTo.focus()}));
   closeSend.addEventListener('click',()=>sendWrap.classList.remove('show'));
   function goNext(){
     const to=sTo.value.trim(), from=sFrom.value.trim();
