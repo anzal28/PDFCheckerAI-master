@@ -126,7 +126,7 @@
   .cbtn{width:100%;margin-top:18px;padding:16px;border:0;border-radius:6px;background:#1f9a3a;color:#fff;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
   .cbtn:hover{background:#27b248}
   /* processing + success card */
-  .pcard{width:min(520px,100%);background:#181426;border-radius:16px;padding:64px 24px 56px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .pcard{width:min(607px,100%);background:linear-gradient(160deg,#2b282f,#1f1e22);border-radius:10px;padding:64px 24px 56px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
   .spin{width:48px;height:48px;margin:0 auto 26px;border-radius:50%;border:4px solid #26304f;border-top-color:#3b82f6;animation:sp .9s linear infinite}
   @keyframes sp{to{transform:rotate(360deg)}}
   .pcard h2{margin:0 0 8px;font-size:18px}
@@ -356,39 +356,6 @@
   .pav{width:36px;height:36px;border-radius:50%;background:#2a2a2a var(--cover) 50% 30%/cover;border:2px solid #3a3a3a}
   .chv{opacity:.7}
   @media(max-width:900px){.pnav .plinks,.pvbar,.pbrand.sub{display:none}}
-  /* cinematic sending screen */
-  .overlay.cine{background:#07050d;padding:0;overflow:hidden;align-items:center;justify-content:center}
-  .cbg{position:absolute;inset:-40px;background:#1a1024 var(--hero) 60% 25%/cover;filter:blur(18px) brightness(.38) saturate(1.5);transform:scale(1.08)}
-  .cine::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(255,45,135,.28),rgba(122,44,255,.22) 55%,rgba(7,5,13,.8))}
-  .lb{position:absolute;left:0;right:0;height:11vh;background:#000;z-index:4;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
-  .lb.top{top:0;transform:translateY(-100%)}.lb.bot{bottom:0;transform:translateY(100%)}
-  .cine.show .lb{transform:none}
-  .cx{position:absolute;top:calc(11vh + 14px);right:22px;z-index:6;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;cursor:pointer}
-  .cx:hover{background:rgba(255,255,255,.26)}
-  .cmid{position:relative;z-index:3;width:min(780px,90vw);text-align:center}
-  .ceye{font-size:12px;letter-spacing:5px;color:#ffb3d4;margin-bottom:14px}
-  .ctitle{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:clamp(60px,12vw,150px);line-height:.9;margin:0 0 14px;text-transform:uppercase;color:#fff;
-    text-shadow:4px 4px 0 #ff2d87,8px 8px 0 #7a2cff,0 18px 60px rgba(0,0,0,.5);letter-spacing:1px}
-  .ctitle.go{animation:flick .5s steps(2) infinite}
-  @keyframes flick{0%{text-shadow:4px 4px 0 #ff2d87,8px 8px 0 #7a2cff,0 18px 60px rgba(0,0,0,.5)}50%{text-shadow:-4px 3px 0 #22d3ee,8px 8px 0 #7a2cff,0 18px 60px rgba(0,0,0,.5)}}
-  .ctitle.done{color:#ffd86b;animation:slam .5s cubic-bezier(.2,1.6,.4,1);text-shadow:4px 4px 0 #ff2d87,8px 8px 0 #7a2cff,0 0 70px rgba(255,200,80,.6)}
-  @keyframes slam{0%{transform:scale(1.8);opacity:0}60%{opacity:1}100%{transform:none}}
-  .csub{min-height:24px;font-size:17px;color:rgba(255,255,255,.88);margin-bottom:34px}
-  .cbar{height:8px;background:rgba(255,255,255,.14);overflow:hidden;clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%)}
-  .cbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff2d87,#ff8a2b,#ffd86b);box-shadow:0 0 22px rgba(255,138,43,.8)}
-  .crow{display:flex;justify-content:space-between;margin-top:12px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.75)}
-  .cflash{position:absolute;inset:0;z-index:5;background:#fff;opacity:0;pointer-events:none}
-  .cflash.on{animation:fl .45s ease-out}
-  @keyframes fl{0%{opacity:.85}100%{opacity:0}}
-  .cine.show .ceye{animation:ovIn .4s .1s backwards}
-  /* confirmation card, GTA style */
-  .pcard{background:#0c0816;border-radius:0;border-left:6px solid #ff2d87;box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 70px rgba(255,45,135,.22);
-    clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%)}
-  .pcard .ok{border-color:#ffb347;color:#ffb347;border-radius:0;transform:none;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-  .cfh{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:44px;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px;text-shadow:3px 3px 0 #ff2d87}
-  .pcard .rcpt{background:rgba(255,255,255,.05);border-radius:0}
-  .pcard .rcpt>div{border-bottom-color:rgba(255,255,255,.1)}
-  .gbtn.cfd{width:100%;padding:16px;font-size:16px;border-radius:0;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#ff2d87,#ff8a2b);box-shadow:0 10px 30px rgba(255,45,135,.4)}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -492,24 +459,34 @@
   </div>
 </div>
 
-<div class="overlay cine" id="sending">
-  <div class="cbg"></div>
-  <div class="lb top"></div><div class="lb bot"></div>
-  <button class="cx" id="closeSending" aria-label="Cancel">✕</button>
-  <div class="cmid">
-    <div class="ceye" id="cEye">VICE PLAY &nbsp;·&nbsp; GIFT DELIVERY</div>
-    <h2 class="ctitle" id="cTitle">SENDING GIFT</h2>
-    <div class="csub" id="cSub"></div>
-    <div class="cbar"><i id="cFill"></i></div>
-    <div class="crow"><span id="cStep">Connecting</span><span id="cPct">0%</span></div>
+<div class="overlay" id="sending">
+  <div class="sdlg tall">
+    <button class="sx" id="closeSending" aria-label="Close">✕</button>
+    <div class="scenter">
+      <div class="ring" id="ring">
+        <svg class="rsvg" viewBox="0 0 120 120">
+          <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+          <g transform="rotate(-90 60 60)"><circle class="rbg" cx="60" cy="60" r="52"/>
+          <circle class="rfg" id="rfg" cx="60" cy="60" r="52"/></g>
+          <path class="rck" id="rck" d="M38 62l16 16 30-34"/>
+        </svg>
+        <div class="rlogo"><svg viewBox="0 0 32 32" width="52" height="52" class="slogo2" aria-hidden="true"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg2)"/><path d="M8 9l8 15 8-15" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8.500" r="2.200" fill="#ffd86b"/></svg></div>
+      </div>
+      <h2 id="sHead">Processing gift</h2>
+      <p id="sSub">Preparing your gift for <b id="sName"></b>…</p>
+      <ul class="steps">
+        <li id="st1"><i></i>Verifying recipient</li>
+        <li id="st2"><i></i>Preparing digital code</li>
+        <li id="st3"><i></i>Securing delivery</li>
+      </ul>
+    </div>
   </div>
-  <div class="cflash" id="cFlash"></div>
 </div>
 
 <div class="overlay" id="fx">
   <div class="pcard">
     <div class="ok">✓</div>
-    <h2 class="cfh">Gift confirmed</h2>
+    <h2 style="font-size:24px;margin-bottom:10px">Gift confirmed</h2>
     <p id="result"></p>
     <div class="rcpt">
       <div><span>Gift for</span><b id="rcTo"></b></div>
@@ -518,7 +495,7 @@
       <div><span>Platform</span><b id="rcPl"></b></div>
       <div><span>Date</span><b id="rcDt"></b></div>
     </div>
-    <button class="gbtn cfd" id="back">Done</button>
+    <button class="gbtn" id="back" style="width:100%;padding:16px;font-size:16px;background:#1d4ed8;border-radius:8px">Done</button>
   </div>
 </div>
 
@@ -574,25 +551,26 @@
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   async function playGift(){
     cancelled=false;
-    cTitle.textContent='SENDING GIFT'; cTitle.className='ctitle go';
-    cSub.textContent='For '+name+' · '+ed.e+' · '+plat;
-    cFill.style.transition='none'; cFill.style.width='0'; cPct.textContent='0%'; cStep.textContent='Connecting';
+    ring.classList.remove('ok'); ring.classList.add('run');
+    rfg.style.transition='none'; rfg.style.strokeDashoffset=327; void rfg.getBoundingClientRect(); rfg.style.transition='';
+    const sts=[st1,st2,st3]; sts.forEach(x=>x.className='');
+    sHead.textContent='Processing gift';
+    sSub.innerHTML='Preparing your gift for <b>'+name.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+'</b>…';
     sending.classList.add('show');
-    const steps=[[0,'Connecting'],[25,'Verifying recipient'],[55,'Preparing digital code'],[82,'Securing delivery']];
-    const DUR=1300, t0=performance.now();
-    while(true){
-      await new Promise(r=>requestAnimationFrame(r));
-      if(cancelled) return;
-      const p=Math.min(1,(performance.now()-t0)/DUR), pc=Math.round(p*100);
-      cFill.style.width=pc+'%'; cPct.textContent=pc+'%';
-      for(const [t,l] of steps) if(pc>=t) cStep.textContent=l;
-      if(p>=1) break;
+    await sleep(120); if(cancelled)return;
+    for(let i=0;i<sts.length;i++){
+      sts[i].className='act';
+      rfg.style.strokeDashoffset=327*(1-(i+1)/(sts.length+1));
+      await sleep(330); if(cancelled)return;
+      sts[i].className='done';
     }
-    cStep.textContent='Delivered';
-    cTitle.className='ctitle done'; cTitle.textContent='GIFT SENT';
-    cSub.textContent='Delivered to '+name+' on '+plat;
-    cFlash.classList.remove('on'); void cFlash.offsetWidth; cFlash.classList.add('on');
-    await sleep(750); if(cancelled)return;
+    sSub.textContent='Sending to '+plat+'…';
+    rfg.style.strokeDashoffset=0;
+    await sleep(320); if(cancelled)return;
+    ring.classList.remove('run'); ring.classList.add('ok');
+    sHead.textContent='Gift processed';
+    sSub.textContent='Delivered to '+name;
+    await sleep(520); if(cancelled)return;
     sending.classList.remove('show');
     result.textContent=`${ed.e} is on its way to ${name} on ${plat}.`;
     rcTo.textContent=name; rcFrom.textContent=sender; rcEd.textContent=ed.e; rcPl.innerHTML=platIcon(plat)+plat;
