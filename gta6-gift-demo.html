@@ -322,6 +322,57 @@
   .ut1:hover{transform:scale(1.02)}
   @media(max-width:900px){.hlinks{display:none}.hmain{grid-template-columns:1fr;gap:40px;min-height:0;padding-bottom:60px}.hcover{aspect-ratio:16/11;max-height:340px}
     .hgrid{grid-template-columns:1fr}.ut1{width:80vw;height:200px}.hed{padding:16px}}
+  /* sending animation (fast) */
+  .ring{position:relative;width:132px;height:132px;margin-bottom:6px}
+  .rsvg{width:100%;height:100%}
+  .rbg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:5}
+  .rfg{fill:none;stroke:url(#rg);stroke-width:5;stroke-linecap:round;stroke-dasharray:327;stroke-dashoffset:327;transition:stroke-dashoffset .3s cubic-bezier(.4,0,.2,1),stroke .2s}
+  .rck{fill:none;stroke:#3ddc84;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset .3s .08s ease-out}
+  .rlogo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s,transform .2s}
+  .ring.run .rsvg{animation:rsp 1s linear infinite}
+  @keyframes rsp{to{transform:rotate(360deg)}}
+  .ring.ok .rsvg{animation:none}
+  .ring.ok .rfg{stroke:#3ddc84}
+  .ring.ok .rck{stroke-dashoffset:0}
+  .ring.ok .rlogo{opacity:0;transform:scale(.6)}
+  .ring.ok{animation:okpop .35s cubic-bezier(.34,1.7,.64,1)}
+  @keyframes okpop{0%{transform:scale(.9)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
+  .steps{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:12px;text-align:left;font-size:14px}
+  .steps li{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.35);transition:color .15s}
+  .steps li i{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.25);flex:none;position:relative;transition:.15s}
+  .steps li.act{color:#fff}
+  .steps li.act i{border-color:rgba(255,255,255,.2);border-top-color:#ff5fa2;animation:rsp2 .4s linear infinite}
+  @keyframes rsp2{to{transform:rotate(360deg)}}
+  .steps li.done{color:rgba(255,255,255,.9)}
+  .steps li.done i{background:#3ddc84;border-color:#3ddc84}
+  .steps li.done i::after{content:"";position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid #0b1a10;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  /* GTA-style sunset treatment */
+  .hv::before{background:linear-gradient(180deg,rgba(255,45,135,.30) 0%,rgba(122,44,255,.26) 45%,#0b0714 900px)}
+  .hbg{filter:blur(34px) brightness(.5) saturate(1.6)}
+  .hleft{position:relative}
+  .hvi{position:absolute;left:-16%;top:-14%;z-index:0;font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:clamp(280px,34vw,520px);line-height:.8;
+    background:linear-gradient(180deg,#ff2d87 0%,#ff8a2b 60%,#ffd86b 100%);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.3;pointer-events:none;user-select:none}
+  .hcover{z-index:1;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 90px rgba(255,45,135,.4)}
+  .htitle{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#fff;-webkit-text-fill-color:#fff;text-transform:uppercase;
+    font-size:clamp(54px,7.2vw,106px);line-height:.9;letter-spacing:1px;text-shadow:3px 3px 0 #ff2d87,6px 6px 0 #7a2cff,0 14px 44px rgba(0,0,0,.45)}
+  .heyebrow{color:#ffb3d4}
+  .hed.on{border-color:#ff5fa2;background:rgba(255,45,135,.12);box-shadow:0 10px 36px rgba(255,45,135,.25)}
+  .hed.on .rad{border-color:#ff5fa2}.hed.on .rad::after{background:#ff5fa2}
+  .hgo{background:linear-gradient(90deg,#ff2d87,#ff8a2b);box-shadow:0 12px 36px rgba(255,45,135,.45);text-transform:uppercase;letter-spacing:1px}
+  .hbadge i{background:#ff5fa2;box-shadow:0 0 8px #ff5fa2}
+  .hmq{position:relative;z-index:2;overflow:hidden;white-space:nowrap;padding:16px 0;margin-bottom:70px;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18);
+    background:linear-gradient(90deg,rgba(255,45,135,.28),rgba(255,138,43,.28))}
+  .hmqt{display:inline-block;font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:40px;letter-spacing:4px;animation:mq 30s linear infinite}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  .hsteps h2,.hshots h2{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:44px;text-transform:uppercase;letter-spacing:1px;text-shadow:2px 2px 0 #ff2d87}
+  .hstep b{background:linear-gradient(135deg,#ff2d87,#ff8a2b)}
+  .hstep{background:linear-gradient(160deg,rgba(255,45,135,.12),rgba(122,44,255,.12));border-color:rgba(255,255,255,.2)}
+  .hmosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:14px}
+  .mt{border-radius:16px;border:1px solid rgba(255,255,255,.2);background:#1a0f2e var(--hero) center/cover no-repeat;transition:transform .25s cubic-bezier(.34,1.6,.64,1),box-shadow .2s}
+  .mt.c{background-image:var(--cover);background-size:210% auto}
+  .mt.w2{grid-column:span 2}.mt.h2{grid-row:span 2}
+  .mt:hover{transform:scale(1.03);box-shadow:0 14px 40px rgba(255,45,135,.4);z-index:2}
+  @media(max-width:900px){.hmosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}.hvi{left:auto;right:-6%;top:-6%}.hmqt{font-size:28px}}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -338,6 +389,7 @@
 
   <main class="hmain">
     <div class="hleft">
+      <div class="hvi" aria-hidden="true">VI</div>
       <div class="hcover">
         <span class="hbadge"><i></i>Out now</span>
         <div class="hshine"></div>
@@ -374,6 +426,8 @@
     </div>
   </main>
 
+  <div class="hmq" aria-hidden="true"><div class="hmqt">VICE CITY &nbsp;★&nbsp; GIFT IT TODAY &nbsp;★&nbsp; PLAYSTATION &amp; XBOX &nbsp;★&nbsp; VICE CITY &nbsp;★&nbsp; GIFT IT TODAY &nbsp;★&nbsp; PLAYSTATION &amp; XBOX &nbsp;★&nbsp; VICE CITY &nbsp;★&nbsp; GIFT IT TODAY &nbsp;★&nbsp; PLAYSTATION &amp; XBOX &nbsp;★&nbsp; VICE CITY &nbsp;★&nbsp; GIFT IT TODAY &nbsp;★&nbsp; PLAYSTATION &amp; XBOX &nbsp;★&nbsp; </div></div>
+
   <section class="hsteps">
     <h2>How gifting works</h2>
     <div class="hgrid">
@@ -384,13 +438,15 @@
   </section>
 
   <section class="hshots">
-    <h2>Screenshots</h2>
-    <div class="htrack">
-      <div class="ut1"></div>
-      <div class="ut1 b" style="background-position:50% 55%"></div>
-      <div class="ut1" style="background-position:80% 40%"></div>
-      <div class="ut1 b" style="background-position:78% 25%"></div>
-      <div class="ut1" style="background-position:50% 90%"></div>
+    <h2>Gallery</h2>
+    <div class="hmosaic">
+      <div class="mt w2 h2" style="background-position:28% 40%"></div>
+      <div class="mt c" style="background-position:22% 30%"></div>
+      <div class="mt c" style="background-position:78% 25%"></div>
+      <div class="mt w2" style="background-position:82% 40%"></div>
+      <div class="mt w2" style="background-position:50% 92%"></div>
+      <div class="mt c" style="background-position:50% 58%"></div>
+      <div class="mt c" style="background-position:86% 42%"></div>
     </div>
   </section>
 </div>
@@ -499,26 +555,26 @@
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   async function playGift(){
     cancelled=false;
-    ring.classList.remove('ok'); ring.classList.add('spin');
+    ring.classList.remove('ok'); ring.classList.add('run');
     rfg.style.transition='none'; rfg.style.strokeDashoffset=327; void rfg.getBoundingClientRect(); rfg.style.transition='';
     const sts=[st1,st2,st3]; sts.forEach(x=>x.className='');
     sHead.textContent='Sending gift';
     sSub.innerHTML='Preparing your gift for <b>'+name.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+'</b>…';
     sending.classList.add('show');
-    await sleep(350); if(cancelled)return;
+    await sleep(120); if(cancelled)return;
     for(let i=0;i<sts.length;i++){
       sts[i].className='act';
       rfg.style.strokeDashoffset=327*(1-(i+1)/(sts.length+1));
-      await sleep(900); if(cancelled)return;
+      await sleep(330); if(cancelled)return;
       sts[i].className='done';
     }
     sSub.textContent='Sending to '+plat+'…';
     rfg.style.strokeDashoffset=0;
-    await sleep(900); if(cancelled)return;
-    ring.classList.remove('spin'); ring.classList.add('ok');
+    await sleep(320); if(cancelled)return;
+    ring.classList.remove('run'); ring.classList.add('ok');
     sHead.textContent='Gift sent';
     sSub.textContent='Delivered to '+name;
-    await sleep(1100); if(cancelled)return;
+    await sleep(520); if(cancelled)return;
     sending.classList.remove('show');
     result.textContent=`${ed.e} is on its way to ${name} on ${plat}.`;
     rcTo.textContent=name; rcFrom.textContent=sender; rcEd.textContent=ed.e; rcPl.innerHTML=platIcon(plat)+plat;
