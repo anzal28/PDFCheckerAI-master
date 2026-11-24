@@ -356,39 +356,39 @@
   .pav{width:36px;height:36px;border-radius:50%;background:#2a2a2a var(--cover) 50% 30%/cover;border:2px solid #3a3a3a}
   .chv{opacity:.7}
   @media(max-width:900px){.pnav .plinks,.pvbar,.pbrand.sub{display:none}}
-  /* GTA-style gift checkout */
-  .sdlg.gt{padding:0;width:min(640px,100%);background:#0c0816;border-left:6px solid #ff2d87;border-radius:0;
-    box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 70px rgba(255,45,135,.22);clip-path:polygon(0 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%)}
-  .gth{display:flex;align-items:center;gap:14px;padding:14px 20px;background:linear-gradient(90deg,rgba(255,45,135,.25),rgba(255,138,43,.12));border-bottom:1px solid rgba(255,255,255,.12);position:relative}
-  .gtk{background:#ff2d87;color:#fff;font-weight:800;font-size:11px;letter-spacing:2px;padding:4px 10px}
-  .gtt{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.85)}
-  .gth .sx{top:50%;transform:translateY(-50%);right:14px;border-radius:0;width:32px;height:32px;background:rgba(255,255,255,.12)}
-  .gtb{padding:26px 30px 30px}
-  .gt .shead{margin-bottom:26px;gap:18px}
-  .gt .scover{width:104px;height:150px;border-radius:0;border:1px solid rgba(255,255,255,.3);box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 30px rgba(255,45,135,.3)}
-  .gtl{font-size:11px;letter-spacing:3px;color:#ff8ab8;margin-bottom:6px}
-  .gt .stitle{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:34px;line-height:1;text-transform:uppercase;letter-spacing:.5px;text-shadow:2px 2px 0 #ff2d87}
-  .gtd{margin-top:12px;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.65)}
-  .gt label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);margin:0 0 8px;font-weight:700}
-  .gt label em{font-style:normal;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:none}
-  .gt .sopt{border-radius:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);font-weight:600;padding:13px}
-  .gt .sopt:hover{border-color:#ff5fa2}
-  .gt .sopt.on{background:#fff;color:#0c0816;border-color:#fff;box-shadow:inset 6px 0 0 #ff2d87}
-  .gt .sopt.on img{filter:invert(1)}
-  .gt .sseg{margin-bottom:22px}
-  .gt input{border-radius:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);padding:13px 14px;margin-bottom:22px}
-  .gt input:focus{border-color:#ff5fa2;box-shadow:inset 4px 0 0 #ff2d87}
-  .gtsum{border-top:1px solid rgba(255,255,255,.14);margin-top:4px}
-  .gtsum>div{display:flex;justify-content:space-between;padding:11px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.08)}
-  .gtsum .dim{color:rgba(255,255,255,.6)}
-  .gtsum .tot{font-size:22px;font-weight:800;border-bottom:0;padding-top:14px}
-  .gtsum .tot small{font-size:11px;font-weight:500;color:rgba(255,255,255,.5);margin-left:4px}
-  .gtsum .tot b{color:#ffb347}
-  .gt .sfine{margin:10px 0 18px;color:rgba(255,255,255,.55)}
-  .gt .snext{display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;border-radius:0;background:linear-gradient(90deg,#ff2d87,#ff8a2b);font-size:16px;letter-spacing:2px;text-transform:uppercase;box-shadow:0 10px 30px rgba(255,45,135,.4)}
-  .gt .snext em{font-style:normal;font-size:20px;transition:transform .15s}
-  .gt .snext:hover .snext em,.gt .snext:hover em{transform:translateX(5px)}
-  .sdlg.gt .sdemo{margin-top:14px}
+  /* cinematic sending screen */
+  .overlay.cine{background:#07050d;padding:0;overflow:hidden;align-items:center;justify-content:center}
+  .cbg{position:absolute;inset:-40px;background:#1a1024 var(--hero) 60% 25%/cover;filter:blur(18px) brightness(.38) saturate(1.5);transform:scale(1.08)}
+  .cine::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(255,45,135,.28),rgba(122,44,255,.22) 55%,rgba(7,5,13,.8))}
+  .lb{position:absolute;left:0;right:0;height:11vh;background:#000;z-index:4;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+  .lb.top{top:0;transform:translateY(-100%)}.lb.bot{bottom:0;transform:translateY(100%)}
+  .cine.show .lb{transform:none}
+  .cx{position:absolute;top:calc(11vh + 14px);right:22px;z-index:6;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;cursor:pointer}
+  .cx:hover{background:rgba(255,255,255,.26)}
+  .cmid{position:relative;z-index:3;width:min(780px,90vw);text-align:center}
+  .ceye{font-size:12px;letter-spacing:5px;color:#ffb3d4;margin-bottom:14px}
+  .ctitle{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:clamp(60px,12vw,150px);line-height:.9;margin:0 0 14px;text-transform:uppercase;color:#fff;
+    text-shadow:4px 4px 0 #ff2d87,8px 8px 0 #7a2cff,0 18px 60px rgba(0,0,0,.5);letter-spacing:1px}
+  .ctitle.go{animation:flick .5s steps(2) infinite}
+  @keyframes flick{0%{text-shadow:4px 4px 0 #ff2d87,8px 8px 0 #7a2cff,0 18px 60px rgba(0,0,0,.5)}50%{text-shadow:-4px 3px 0 #22d3ee,8px 8px 0 #7a2cff,0 18px 60px rgba(0,0,0,.5)}}
+  .ctitle.done{color:#ffd86b;animation:slam .5s cubic-bezier(.2,1.6,.4,1);text-shadow:4px 4px 0 #ff2d87,8px 8px 0 #7a2cff,0 0 70px rgba(255,200,80,.6)}
+  @keyframes slam{0%{transform:scale(1.8);opacity:0}60%{opacity:1}100%{transform:none}}
+  .csub{min-height:24px;font-size:17px;color:rgba(255,255,255,.88);margin-bottom:34px}
+  .cbar{height:8px;background:rgba(255,255,255,.14);overflow:hidden;clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+  .cbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff2d87,#ff8a2b,#ffd86b);box-shadow:0 0 22px rgba(255,138,43,.8)}
+  .crow{display:flex;justify-content:space-between;margin-top:12px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  .cflash{position:absolute;inset:0;z-index:5;background:#fff;opacity:0;pointer-events:none}
+  .cflash.on{animation:fl .45s ease-out}
+  @keyframes fl{0%{opacity:.85}100%{opacity:0}}
+  .cine.show .ceye{animation:ovIn .4s .1s backwards}
+  /* confirmation card, GTA style */
+  .pcard{background:#0c0816;border-radius:0;border-left:6px solid #ff2d87;box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 70px rgba(255,45,135,.22);
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%)}
+  .pcard .ok{border-color:#ffb347;color:#ffb347;border-radius:0;transform:none;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+  .cfh{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:44px;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px;text-shadow:3px 3px 0 #ff2d87}
+  .pcard .rcpt{background:rgba(255,255,255,.05);border-radius:0}
+  .pcard .rcpt>div{border-bottom-color:rgba(255,255,255,.1)}
+  .gbtn.cfd{width:100%;padding:16px;font-size:16px;border-radius:0;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#ff2d87,#ff8a2b);box-shadow:0 10px 30px rgba(255,45,135,.4)}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -470,71 +470,46 @@
 </div>
 
 <div class="overlay" id="sendWrap">
-  <div class="sdlg gt">
-    <div class="gth"><span class="gtk">VICE PLAY</span><span class="gtt">Gift checkout</span><button class="sx" id="closeSend" aria-label="Close">✕</button></div>
-    <div class="gtb">
-      <div class="shead">
-        <div class="scover"></div>
-        <div class="gti">
-          <div class="gtl">YOU'RE GIFTING</div>
-          <div class="stitle" id="sTitle"></div>
-          <div class="gtd" id="sDesc"></div>
-        </div>
-      </div>
-
-      <label>1 · Choose platform</label>
-      <div class="sseg" id="sSeg">
-        <button type="button" class="sopt" data-p="PlayStation 5"><img id="sIcoPs" alt=""><span>PlayStation 5</span></button>
-        <button type="button" class="sopt" data-p="Xbox Series X|S"><img id="sIcoXb" alt=""><span>Xbox Series X|S</span></button>
-      </div>
-
-      <label for="sTo" id="sToLbl">2 · Recipient</label>
-      <input id="sTo" maxlength="30" autocomplete="off">
-
-      <label for="sFrom">3 · Your name <em>(optional)</em></label>
-      <input id="sFrom" maxlength="30" autocomplete="off" placeholder="Leave blank to send anonymously">
-
-      <div class="gtsum">
-        <div><span id="sLine">Edition</span><b id="sLinePr"></b></div>
-        <div class="dim"><span>Digital delivery</span><b>Free</b></div>
-        <div class="tot"><span>Total <small>(incl. tax)</small></span><b id="sPrice"></b></div>
-      </div>
-
-      <p class="sfine">Your gift is sent as a digital code. The recipient must meet any age rating requirements.</p>
-      <button class="snext" id="sNext"><span id="sNextT">CONFIRM GIFT</span><em>→</em></button>
-      <div class="sdemo">Demo page · nothing is charged and names aren't sent anywhere.</div>
+  <div class="sdlg">
+    <button class="sx" id="closeSend" aria-label="Close">✕</button>
+    <h2>Send gift</h2>
+    <div class="shead">
+      <div class="scover"></div>
+      <div><div class="stitle" id="sTitle"></div><div class="sprice" id="sPrice"></div></div>
     </div>
+    <label>Choose platform (required)</label>
+    <div class="sseg" id="sSeg">
+      <button type="button" class="sopt" data-p="PlayStation 5"><img id="sIcoPs" alt=""><span>PlayStation</span></button>
+      <button type="button" class="sopt" data-p="Xbox Series X|S"><img id="sIcoXb" alt=""><span>Xbox</span></button>
+    </div>
+    <label for="sTo" id="sToLbl"></label>
+    <input id="sTo" maxlength="30" autocomplete="off">
+    <label for="sFrom">Your name (optional)</label>
+    <input id="sFrom" maxlength="30" autocomplete="off" placeholder="Leave blank to send anonymously">
+    <p class="sfine">Your gift will be sent as a digital code. Recipient must meet any age rating requirements. Learn more about <a>Gift terms and conditions</a> and <a>Terms of sale</a>.</p>
+    <button class="snext" id="sNext">NEXT</button>
+    <div class="sdemo">Demo page · names stay on this page and aren't sent anywhere.</div>
   </div>
 </div>
 
-<div class="overlay" id="sending">
-  <div class="sdlg tall">
-    <button class="sx" id="closeSending" aria-label="Close">✕</button>
-    <div class="scenter">
-      <div class="ring" id="ring">
-        <svg class="rsvg" viewBox="0 0 120 120">
-          <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
-          <g transform="rotate(-90 60 60)"><circle class="rbg" cx="60" cy="60" r="52"/>
-          <circle class="rfg" id="rfg" cx="60" cy="60" r="52"/></g>
-          <path class="rck" id="rck" d="M38 62l16 16 30-34"/>
-        </svg>
-        <div class="rlogo"><svg viewBox="0 0 32 32" width="52" height="52" class="slogo2" aria-hidden="true"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg2)"/><path d="M8 9l8 15 8-15" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8.500" r="2.200" fill="#ffd86b"/></svg></div>
-      </div>
-      <h2 id="sHead">Sending gift</h2>
-      <p id="sSub">Preparing your gift for <b id="sName"></b>…</p>
-      <ul class="steps">
-        <li id="st1"><i></i>Verifying recipient</li>
-        <li id="st2"><i></i>Preparing digital code</li>
-        <li id="st3"><i></i>Securing delivery</li>
-      </ul>
-    </div>
+<div class="overlay cine" id="sending">
+  <div class="cbg"></div>
+  <div class="lb top"></div><div class="lb bot"></div>
+  <button class="cx" id="closeSending" aria-label="Cancel">✕</button>
+  <div class="cmid">
+    <div class="ceye" id="cEye">VICE PLAY &nbsp;·&nbsp; GIFT DELIVERY</div>
+    <h2 class="ctitle" id="cTitle">SENDING GIFT</h2>
+    <div class="csub" id="cSub"></div>
+    <div class="cbar"><i id="cFill"></i></div>
+    <div class="crow"><span id="cStep">Connecting</span><span id="cPct">0%</span></div>
   </div>
+  <div class="cflash" id="cFlash"></div>
 </div>
 
 <div class="overlay" id="fx">
   <div class="pcard">
     <div class="ok">✓</div>
-    <h2 style="font-size:24px;margin-bottom:10px">Gift confirmed</h2>
+    <h2 class="cfh">Gift confirmed</h2>
     <p id="result"></p>
     <div class="rcpt">
       <div><span>Gift for</span><b id="rcTo"></b></div>
@@ -543,7 +518,7 @@
       <div><span>Platform</span><b id="rcPl"></b></div>
       <div><span>Date</span><b id="rcDt"></b></div>
     </div>
-    <button class="gbtn" id="back" style="width:100%;padding:16px;font-size:16px;background:#1d4ed8;border-radius:8px">Done</button>
+    <button class="gbtn cfd" id="back">Done</button>
   </div>
 </div>
 
@@ -556,10 +531,8 @@
   const idHint={'PlayStation 5':'Enter a PlayStation ID','Xbox Series X|S':'Enter an Xbox username'};
   function openSend(btn){
     ed=btn.dataset;
-    sTitle.textContent='Grand Theft Auto VI · '+ed.e;
-    sDesc.textContent=(ed.d||'').replace(/^Includes:\s*/,'');
-    sLine.textContent=ed.e; sLinePr.textContent=ed.pr; sPrice.textContent=ed.pr;
-    sNextT.textContent='Confirm gift · '+ed.pr;
+    sTitle.textContent='Grand Theft Auto VI: '+ed.e;
+    sPrice.textContent='Gift price: '+ed.pr+' including tax';
     setSendPlat('');
     sTo.value=''; sFrom.value=''; sendWrap.classList.add('show');
   }
@@ -584,7 +557,7 @@
   function setSendPlat(p){
     plat=p;
     document.querySelectorAll('.sopt').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
-    sToLbl.textContent=`2 · Recipient's ${idLabel[p]||'username'}`;
+    sToLbl.textContent=`Sending gift to (${idLabel[p]||'username'}, required)`;
     sTo.placeholder=idHint[p]||'Enter a username';
   }
   document.querySelectorAll('.sopt').forEach(b=>b.addEventListener('click',()=>{setSendPlat(b.dataset.p);sSeg.classList.remove('err');sTo.focus()}));
@@ -601,26 +574,25 @@
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   async function playGift(){
     cancelled=false;
-    ring.classList.remove('ok'); ring.classList.add('run');
-    rfg.style.transition='none'; rfg.style.strokeDashoffset=327; void rfg.getBoundingClientRect(); rfg.style.transition='';
-    const sts=[st1,st2,st3]; sts.forEach(x=>x.className='');
-    sHead.textContent='Sending gift';
-    sSub.innerHTML='Preparing your gift for <b>'+name.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+'</b>…';
+    cTitle.textContent='SENDING GIFT'; cTitle.className='ctitle go';
+    cSub.textContent='For '+name+' · '+ed.e+' · '+plat;
+    cFill.style.transition='none'; cFill.style.width='0'; cPct.textContent='0%'; cStep.textContent='Connecting';
     sending.classList.add('show');
-    await sleep(120); if(cancelled)return;
-    for(let i=0;i<sts.length;i++){
-      sts[i].className='act';
-      rfg.style.strokeDashoffset=327*(1-(i+1)/(sts.length+1));
-      await sleep(330); if(cancelled)return;
-      sts[i].className='done';
+    const steps=[[0,'Connecting'],[25,'Verifying recipient'],[55,'Preparing digital code'],[82,'Securing delivery']];
+    const DUR=1300, t0=performance.now();
+    while(true){
+      await new Promise(r=>requestAnimationFrame(r));
+      if(cancelled) return;
+      const p=Math.min(1,(performance.now()-t0)/DUR), pc=Math.round(p*100);
+      cFill.style.width=pc+'%'; cPct.textContent=pc+'%';
+      for(const [t,l] of steps) if(pc>=t) cStep.textContent=l;
+      if(p>=1) break;
     }
-    sSub.textContent='Sending to '+plat+'…';
-    rfg.style.strokeDashoffset=0;
-    await sleep(320); if(cancelled)return;
-    ring.classList.remove('run'); ring.classList.add('ok');
-    sHead.textContent='Gift sent';
-    sSub.textContent='Delivered to '+name;
-    await sleep(520); if(cancelled)return;
+    cStep.textContent='Delivered';
+    cTitle.className='ctitle done'; cTitle.textContent='GIFT SENT';
+    cSub.textContent='Delivered to '+name+' on '+plat;
+    cFlash.classList.remove('on'); void cFlash.offsetWidth; cFlash.classList.add('on');
+    await sleep(750); if(cancelled)return;
     sending.classList.remove('show');
     result.textContent=`${ed.e} is on its way to ${name} on ${plat}.`;
     rcTo.textContent=name; rcFrom.textContent=sender; rcEd.textContent=ed.e; rcPl.innerHTML=platIcon(plat)+plat;
