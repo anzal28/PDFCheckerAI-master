@@ -356,6 +356,23 @@
   .pav{width:36px;height:36px;border-radius:50%;background:#2a2a2a var(--cover) 50% 30%/cover;border:2px solid #3a3a3a}
   .chv{opacity:.7}
   @media(max-width:900px){.pnav .plinks,.pvbar,.pbrand.sub{display:none}}
+  /* horizontal processing + confirmation */
+  .sdlg.wide{width:min(940px,94vw);padding:46px 54px;min-height:0}
+  .wrow{display:flex;align-items:center;gap:48px}
+  .wrow .ring{flex:none;width:150px;height:150px;margin:0}
+  .wbody{flex:1;min-width:0;text-align:left}
+  .wbody h2{margin:0 0 8px;font-size:30px;font-weight:600}
+  .wbody p{margin:0 0 22px;font-size:15px;color:rgba(255,255,255,.8)}
+  .hbar{height:6px;background:rgba(255,255,255,.12);border-radius:6px;overflow:hidden}
+  .hbar i{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,#ff7eb6,#8a4fff,#22d3ee);transition:width .3s cubic-bezier(.4,0,.2,1)}
+  .hbar.ok i{background:#3ddc84}
+  .steps.hz{flex-direction:row;gap:30px;margin:20px 0 0;flex-wrap:wrap}
+  .pcard.wide2{width:min(940px,94vw);padding:46px 54px;display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center;text-align:left}
+  .pcard.wide2 .cl{text-align:left}
+  .pcard.wide2 .ok{margin:0 0 20px}
+  .pcard.wide2 p{margin:0 0 26px;text-align:left;max-width:none}
+  .pcard.wide2 .rcpt{margin:0}
+  @media(max-width:700px){.wrow{flex-direction:column;text-align:center;gap:24px}.wbody{text-align:center}.steps.hz{justify-content:center}.pcard.wide2{grid-template-columns:1fr;gap:26px}.sdlg.wide{padding:38px 24px}}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -460,9 +477,9 @@
 </div>
 
 <div class="overlay" id="sending">
-  <div class="sdlg tall">
+  <div class="sdlg wide">
     <button class="sx" id="closeSending" aria-label="Close">✕</button>
-    <div class="scenter">
+    <div class="wrow">
       <div class="ring" id="ring">
         <svg class="rsvg" viewBox="0 0 120 120">
           <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
@@ -472,22 +489,28 @@
         </svg>
         <div class="rlogo"><svg viewBox="0 0 32 32" width="52" height="52" class="slogo2" aria-hidden="true"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7eb6"/><stop offset=".55" stop-color="#8a4fff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg2)"/><path d="M8 9l8 15 8-15" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8.500" r="2.200" fill="#ffd86b"/></svg></div>
       </div>
-      <h2 id="sHead">Processing gift</h2>
-      <p id="sSub">Preparing your gift for <b id="sName"></b>…</p>
-      <ul class="steps">
-        <li id="st1"><i></i>Verifying recipient</li>
-        <li id="st2"><i></i>Preparing digital code</li>
-        <li id="st3"><i></i>Securing delivery</li>
-      </ul>
+      <div class="wbody">
+        <h2 id="sHead">Processing gift</h2>
+        <p id="sSub">Preparing your gift for <b id="sName"></b>…</p>
+        <div class="hbar"><i id="hbar"></i></div>
+        <ul class="steps hz">
+          <li id="st1"><i></i>Verifying recipient</li>
+          <li id="st2"><i></i>Preparing digital code</li>
+          <li id="st3"><i></i>Securing delivery</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="overlay" id="fx">
-  <div class="pcard">
-    <div class="ok">✓</div>
-    <h2 style="font-size:24px;margin-bottom:10px">Gift confirmed</h2>
-    <p id="result"></p>
+  <div class="pcard wide2">
+    <div class="cl">
+      <div class="ok">✓</div>
+      <h2 style="font-size:26px;margin:0 0 10px">Gift confirmed</h2>
+      <p id="result"></p>
+      <button class="gbtn" id="back" style="width:100%;padding:16px;font-size:16px;background:#1d4ed8;border-radius:8px">Done</button>
+    </div>
     <div class="rcpt">
       <div><span>Gift for</span><b id="rcTo"></b></div>
       <div><span>From</span><b id="rcFrom"></b></div>
@@ -495,7 +518,6 @@
       <div><span>Platform</span><b id="rcPl"></b></div>
       <div><span>Date</span><b id="rcDt"></b></div>
     </div>
-    <button class="gbtn" id="back" style="width:100%;padding:16px;font-size:16px;background:#1d4ed8;border-radius:8px">Done</button>
   </div>
 </div>
 
@@ -553,6 +575,7 @@
     cancelled=false;
     ring.classList.remove('ok'); ring.classList.add('run');
     rfg.style.transition='none'; rfg.style.strokeDashoffset=327; void rfg.getBoundingClientRect(); rfg.style.transition='';
+    hbar.style.transition='none'; hbar.style.width='0'; void hbar.getBoundingClientRect(); hbar.style.transition=''; hbar.parentElement.classList.remove('ok');
     const sts=[st1,st2,st3]; sts.forEach(x=>x.className='');
     sHead.textContent='Processing gift';
     sSub.innerHTML='Preparing your gift for <b>'+name.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+'</b>…';
@@ -560,14 +583,14 @@
     await sleep(120); if(cancelled)return;
     for(let i=0;i<sts.length;i++){
       sts[i].className='act';
-      rfg.style.strokeDashoffset=327*(1-(i+1)/(sts.length+1));
+      rfg.style.strokeDashoffset=327*(1-(i+1)/(sts.length+1)); hbar.style.width=((i+1)/(sts.length+1)*100)+'%';
       await sleep(330); if(cancelled)return;
       sts[i].className='done';
     }
     sSub.textContent='Sending to '+plat+'…';
-    rfg.style.strokeDashoffset=0;
+    rfg.style.strokeDashoffset=0; hbar.style.width='100%';
     await sleep(320); if(cancelled)return;
-    ring.classList.remove('run'); ring.classList.add('ok');
+    ring.classList.remove('run'); ring.classList.add('ok'); hbar.parentElement.classList.add('ok');
     sHead.textContent='Gift processed';
     sSub.textContent='Delivered to '+name;
     await sleep(520); if(cancelled)return;
