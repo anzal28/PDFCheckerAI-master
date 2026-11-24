@@ -356,6 +356,39 @@
   .pav{width:36px;height:36px;border-radius:50%;background:#2a2a2a var(--cover) 50% 30%/cover;border:2px solid #3a3a3a}
   .chv{opacity:.7}
   @media(max-width:900px){.pnav .plinks,.pvbar,.pbrand.sub{display:none}}
+  /* GTA-style gift checkout */
+  .sdlg.gt{padding:0;width:min(640px,100%);background:#0c0816;border-left:6px solid #ff2d87;border-radius:0;
+    box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 70px rgba(255,45,135,.22);clip-path:polygon(0 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%)}
+  .gth{display:flex;align-items:center;gap:14px;padding:14px 20px;background:linear-gradient(90deg,rgba(255,45,135,.25),rgba(255,138,43,.12));border-bottom:1px solid rgba(255,255,255,.12);position:relative}
+  .gtk{background:#ff2d87;color:#fff;font-weight:800;font-size:11px;letter-spacing:2px;padding:4px 10px}
+  .gtt{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .gth .sx{top:50%;transform:translateY(-50%);right:14px;border-radius:0;width:32px;height:32px;background:rgba(255,255,255,.12)}
+  .gtb{padding:26px 30px 30px}
+  .gt .shead{margin-bottom:26px;gap:18px}
+  .gt .scover{width:104px;height:150px;border-radius:0;border:1px solid rgba(255,255,255,.3);box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 30px rgba(255,45,135,.3)}
+  .gtl{font-size:11px;letter-spacing:3px;color:#ff8ab8;margin-bottom:6px}
+  .gt .stitle{font-family:"Barlow Condensed",Impact,sans-serif;font-weight:800;font-size:34px;line-height:1;text-transform:uppercase;letter-spacing:.5px;text-shadow:2px 2px 0 #ff2d87}
+  .gtd{margin-top:12px;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.65)}
+  .gt label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);margin:0 0 8px;font-weight:700}
+  .gt label em{font-style:normal;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:none}
+  .gt .sopt{border-radius:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);font-weight:600;padding:13px}
+  .gt .sopt:hover{border-color:#ff5fa2}
+  .gt .sopt.on{background:#fff;color:#0c0816;border-color:#fff;box-shadow:inset 6px 0 0 #ff2d87}
+  .gt .sopt.on img{filter:invert(1)}
+  .gt .sseg{margin-bottom:22px}
+  .gt input{border-radius:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);padding:13px 14px;margin-bottom:22px}
+  .gt input:focus{border-color:#ff5fa2;box-shadow:inset 4px 0 0 #ff2d87}
+  .gtsum{border-top:1px solid rgba(255,255,255,.14);margin-top:4px}
+  .gtsum>div{display:flex;justify-content:space-between;padding:11px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .gtsum .dim{color:rgba(255,255,255,.6)}
+  .gtsum .tot{font-size:22px;font-weight:800;border-bottom:0;padding-top:14px}
+  .gtsum .tot small{font-size:11px;font-weight:500;color:rgba(255,255,255,.5);margin-left:4px}
+  .gtsum .tot b{color:#ffb347}
+  .gt .sfine{margin:10px 0 18px;color:rgba(255,255,255,.55)}
+  .gt .snext{display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;border-radius:0;background:linear-gradient(90deg,#ff2d87,#ff8a2b);font-size:16px;letter-spacing:2px;text-transform:uppercase;box-shadow:0 10px 30px rgba(255,45,135,.4)}
+  .gt .snext em{font-style:normal;font-size:20px;transition:transform .15s}
+  .gt .snext:hover .snext em,.gt .snext:hover em{transform:translateX(5px)}
+  .sdlg.gt .sdemo{margin-top:14px}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
@@ -437,25 +470,40 @@
 </div>
 
 <div class="overlay" id="sendWrap">
-  <div class="sdlg">
-    <button class="sx" id="closeSend" aria-label="Close">✕</button>
-    <h2>Send gift</h2>
-    <div class="shead">
-      <div class="scover"></div>
-      <div><div class="stitle" id="sTitle"></div><div class="sprice" id="sPrice"></div></div>
+  <div class="sdlg gt">
+    <div class="gth"><span class="gtk">VICE PLAY</span><span class="gtt">Gift checkout</span><button class="sx" id="closeSend" aria-label="Close">✕</button></div>
+    <div class="gtb">
+      <div class="shead">
+        <div class="scover"></div>
+        <div class="gti">
+          <div class="gtl">YOU'RE GIFTING</div>
+          <div class="stitle" id="sTitle"></div>
+          <div class="gtd" id="sDesc"></div>
+        </div>
+      </div>
+
+      <label>1 · Choose platform</label>
+      <div class="sseg" id="sSeg">
+        <button type="button" class="sopt" data-p="PlayStation 5"><img id="sIcoPs" alt=""><span>PlayStation 5</span></button>
+        <button type="button" class="sopt" data-p="Xbox Series X|S"><img id="sIcoXb" alt=""><span>Xbox Series X|S</span></button>
+      </div>
+
+      <label for="sTo" id="sToLbl">2 · Recipient</label>
+      <input id="sTo" maxlength="30" autocomplete="off">
+
+      <label for="sFrom">3 · Your name <em>(optional)</em></label>
+      <input id="sFrom" maxlength="30" autocomplete="off" placeholder="Leave blank to send anonymously">
+
+      <div class="gtsum">
+        <div><span id="sLine">Edition</span><b id="sLinePr"></b></div>
+        <div class="dim"><span>Digital delivery</span><b>Free</b></div>
+        <div class="tot"><span>Total <small>(incl. tax)</small></span><b id="sPrice"></b></div>
+      </div>
+
+      <p class="sfine">Your gift is sent as a digital code. The recipient must meet any age rating requirements.</p>
+      <button class="snext" id="sNext"><span id="sNextT">CONFIRM GIFT</span><em>→</em></button>
+      <div class="sdemo">Demo page · nothing is charged and names aren't sent anywhere.</div>
     </div>
-    <label>Choose platform (required)</label>
-    <div class="sseg" id="sSeg">
-      <button type="button" class="sopt" data-p="PlayStation 5"><img id="sIcoPs" alt=""><span>PlayStation</span></button>
-      <button type="button" class="sopt" data-p="Xbox Series X|S"><img id="sIcoXb" alt=""><span>Xbox</span></button>
-    </div>
-    <label for="sTo" id="sToLbl"></label>
-    <input id="sTo" maxlength="30" autocomplete="off">
-    <label for="sFrom">Enter your sender name (required)</label>
-    <input id="sFrom" maxlength="30" autocomplete="off">
-    <p class="sfine">Your gift will be sent as a digital code. Recipient must meet any age rating requirements. Learn more about <a>Gift terms and conditions</a> and <a>Terms of sale</a>.</p>
-    <button class="snext" id="sNext">NEXT</button>
-    <div class="sdemo">Demo page · names stay on this page and aren't sent anywhere.</div>
   </div>
 </div>
 
@@ -508,8 +556,10 @@
   const idHint={'PlayStation 5':'Enter a PlayStation ID','Xbox Series X|S':'Enter an Xbox username'};
   function openSend(btn){
     ed=btn.dataset;
-    sTitle.textContent='Grand Theft Auto VI: '+ed.e;
-    sPrice.textContent='Gift price: '+ed.pr+' including tax';
+    sTitle.textContent='Grand Theft Auto VI · '+ed.e;
+    sDesc.textContent=(ed.d||'').replace(/^Includes:\s*/,'');
+    sLine.textContent=ed.e; sLinePr.textContent=ed.pr; sPrice.textContent=ed.pr;
+    sNextT.textContent='Confirm gift · '+ed.pr;
     setSendPlat('');
     sTo.value=''; sFrom.value=''; sendWrap.classList.add('show');
   }
@@ -534,7 +584,7 @@
   function setSendPlat(p){
     plat=p;
     document.querySelectorAll('.sopt').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
-    sToLbl.textContent=`Sending gift to (${idLabel[p]||'username'}, required)`;
+    sToLbl.textContent=`2 · Recipient's ${idLabel[p]||'username'}`;
     sTo.placeholder=idHint[p]||'Enter a username';
   }
   document.querySelectorAll('.sopt').forEach(b=>b.addEventListener('click',()=>{setSendPlat(b.dataset.p);sSeg.classList.remove('err');sTo.focus()}));
@@ -542,8 +592,8 @@
   function goNext(){
     const to=sTo.value.trim(), from=sFrom.value.trim();
     if(!plat){sSeg.classList.add('err');return}
-    if(!to){sTo.focus();return} if(!from){sFrom.focus();return}
-    name=to; sender=from; sendWrap.classList.remove('show'); playGift();
+    if(!to){sTo.focus();return}
+    name=to; sender=from||'Anonymous'; sendWrap.classList.remove('show'); playGift();
   }
   sNext.addEventListener('click',goNext);
   [sTo,sFrom].forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')goNext()}));
