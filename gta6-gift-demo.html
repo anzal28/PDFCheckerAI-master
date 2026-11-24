@@ -374,6 +374,34 @@
   .sdlg.conf p{margin:0 auto 26px;max-width:380px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.8)}
   .sdlg.conf .rcpt{margin:0 0 26px;text-align:left}
   @media(max-width:700px){.sdlg.conf{padding:46px 24px 34px}}
+  /* unified rectangular panel style (matches the Send gift dialog) */
+  .pbadge{color:#7dff9b}.pbadge i{background:#3ddc84;box-shadow:0 0 10px #3ddc84}
+  .pcontent{max-width:880px}
+  .pcards{gap:16px;flex-wrap:nowrap}
+  .pcards .hed{width:310px;padding:22px 24px 20px;border-radius:4px;background:linear-gradient(160deg,#2b282f,#1f1e22);border:1px solid #55535a;backdrop-filter:none;gap:7px}
+  .pcards .hed:hover{transform:translateY(-3px);background:linear-gradient(160deg,#322f37,#25242a);border-color:#a3a1ab}
+  .pcards .hed.on{border-color:#3ddc84;background:linear-gradient(160deg,#243229,#1b221e);box-shadow:0 2px 0 #3ddc84,0 14px 36px rgba(0,0,0,.45)}
+  .pk{color:rgba(255,255,255,.7);letter-spacing:2.5px}
+  .pk em{background:#0f8a43;border-radius:2px;padding:3px 7px}
+  .pp{font-size:34px}
+  .pc{border-radius:2px;background:#3ddc84;color:#0b1a10;top:16px;right:16px;font-weight:800}
+  .pinc{color:rgba(255,255,255,.65)}
+  .pgo{height:54px;padding:0 44px;border-radius:4px;background:#0f8a43;color:#fff;text-transform:uppercase;letter-spacing:.8px;font-size:14px}
+  .pgo:hover{transform:translateY(-3px);background:#12a050;box-shadow:0 14px 34px rgba(15,138,67,.45)}
+  .psec h2{letter-spacing:2px}
+  .ctab{background:linear-gradient(160deg,#2b282f,#1f1e22);border:1px solid #55535a;border-radius:4px;border-collapse:separate;border-spacing:0;overflow:hidden}
+  .ctab th{padding:18px 20px 14px;background:rgba(255,255,255,.04)}
+  .ctab td{padding:15px 20px}
+  .ctab th:first-child,.ctab td:first-child{padding-left:26px}
+  .ctab .ck{color:#3ddc84}
+  .hsteps3{gap:16px}
+  .st3{background:linear-gradient(160deg,#2b282f,#1f1e22);border:1px solid #55535a;border-radius:4px;padding:26px 26px 28px;transition:transform .18s cubic-bezier(.34,1.8,.64,1),border-color .15s}
+  .st3:hover{transform:translateY(-4px);border-color:#a3a1ab}
+  .st3 b{border-radius:2px;border:0;background:#0f8a43;color:#fff;width:34px;height:34px;font-size:15px}
+  .fr{border-radius:4px;border:1px solid #55535a}
+  .pavail img{opacity:1}
+  .pfoot{background:#0b0a10}
+  @media(max-width:800px){.pcards{flex-wrap:wrap}.pcards .hed{width:100%}}
   @media(max-width:520px){.eds{grid-template-columns:1fr}.art{aspect-ratio:16/10}}
   @media(max-width:520px){.box{width:68px}.box .n{font-size:30px}}
 </style>
